@@ -53,14 +53,5 @@ public class Contacto {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "Contacto{" +
-                "nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", id='" + id + '\'' +
-                ", telefono='" + telefono + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
+
 }
