@@ -37,4 +37,12 @@ public class Departamento {
         this.numeroEmpleados = numeroEmpleados;
     }
 
+    @Override
+    public String toString() {
+        return "Departamento{" +
+                "nombre='" + nombre + '\'' +
+                ", id='" + id + '\'' +
+                ", numeroEmpleados=" + numeroEmpleados +
+                '}';
+    }
 }
