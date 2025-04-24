@@ -11,7 +11,10 @@ public class Contacto {
         this.id = id;
         this.telefono = telefono;
         this.email = email;
+        System.out.println("hola");
+
     }
+
 
 
 
