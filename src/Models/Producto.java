@@ -8,7 +8,10 @@ public abstract class Producto {
     protected double precioUnitario;
     protected UnidadDeMedida unidad;
 
+
     //constructor
+
+    public Producto() {}
     public Producto(String id, String nombre, String descripcion,double precioUnitario, UnidadDeMedida unidad) {
         this.id = id;
         this.nombre = nombre;
