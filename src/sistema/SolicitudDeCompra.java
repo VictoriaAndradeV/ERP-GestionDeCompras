@@ -1,4 +1,5 @@
 package sistema;
+import Models.DetalleSolicitud;
 import enums.Estado;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -8,21 +9,23 @@ public class SolicitudDeCompra {
     Usuario usuario;
     Estado estado;
     private GregorianCalendar fechaSolicitud;
-    private List<DetalleSocilicitud> detalleSocilicitud;
+    private List<DetalleSolicitud> detalleSolicitud;
 
     public SolicitudDeCompra() {
-        detalleSocilicitud = new ArrayList<>();
+        detalleSolicitud = new ArrayList<>();
     }
 
     public SolicitudDeCompra(GregorianCalendar fechaSolicitud, Estado estado) {
         this.fechaSolicitud = fechaSolicitud;
         this.estado = estado;
-        detalleSocilicitud = new ArrayList<>();
+        detalleSolicitud = new ArrayList<>();
     }
 
     public Usuario getUsuario() {
         return usuario;
     }
 
-    public void addUsuario(String nombre, String apellido, String email, ) {}
+    public void addUsuario(String nombre, String apellido, String id, String email, String telefono ) {
+        this.usuario = new Usuario(nombre, apellido, id, email, telefono);
+    }
 }
