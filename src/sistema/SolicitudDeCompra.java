@@ -9,7 +9,6 @@ public class SolicitudDeCompra {
     Usuario usuario;
     Estado estado;
     private GregorianCalendar fechaSolicitud;
-    private List<DetalleSolicitud> detalleSocilicitud;
 
     public SolicitudDeCompra() {
         detalleSocilicitud = new ArrayList<>();
@@ -25,5 +24,4 @@ public class SolicitudDeCompra {
         return usuario;
     }
 
-    public void addUsuario(String nombre, String apellido, String email) {}
 }
