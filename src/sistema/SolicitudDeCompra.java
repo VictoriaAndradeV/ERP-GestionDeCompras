@@ -30,4 +30,6 @@ public class SolicitudDeCompra {
     public void addUsuario(String nombre, String apellido, String id, String email, String telefono ) {
         this.usuario = new Usuario(nombre, apellido, id, email, telefono);
     }
+
+
 }
