@@ -1,7 +1,5 @@
 package Models;
 
-import Enums.UnidadDeMedida;
-
 public class DetalleSolicitud {
     private Producto producto;
     private int cantidad;
@@ -17,14 +15,17 @@ public class DetalleSolicitud {
     }
 
     public Producto getProducto() {
+
         return producto;
     }
 
     public void setProducto(Producto producto) {
+
         this.producto = producto;
     }
 
     public int getCantidad() {
+
         return cantidad;
     }
 
@@ -39,6 +40,11 @@ public class DetalleSolicitud {
     public void setJustificacion(String justificacion) {
         this.justificacion = justificacion;
     }
+
+    public double calcularTotal(){
+        return producto.calcularPrecio() * cantidad;
+    }
+
     // facilita la impresion
     @Override
     public String toString() {
@@ -48,4 +54,6 @@ public class DetalleSolicitud {
                 ", justificacion='" + justificacion + '\'' +
                 '}';
     }
+
+
 }
