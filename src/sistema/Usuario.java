@@ -1,10 +1,9 @@
 package sistema;
-import enums.Rol;
+import Enums.Rol;
 
 public class Usuario extends Contacto{
     Departamento departamento;
     private Rol rol;
-
 
     public Usuario(String nombre, String apellido, String id, String email, String telefono, Departamento departamento, Rol rol) {
         super(nombre, apellido, id, email, telefono);

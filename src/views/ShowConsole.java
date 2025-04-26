@@ -3,9 +3,8 @@ package views;
 import java.util.Scanner;
 import sistema.Contacto;
 import sistema.Departamento;
-import sistema.Proveedor;
 import sistema.Usuario;
-import enums.Rol;
+import Enums.Rol;
 
 public class ShowConsole {
 

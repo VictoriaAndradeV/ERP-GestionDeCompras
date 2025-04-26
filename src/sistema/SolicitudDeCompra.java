@@ -1,4 +1,5 @@
 package sistema;
+import Enums.Rol;
 import Models.DetalleSolicitud;
 import enums.Estado;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class SolicitudDeCompra {
         return usuario;
     }
 
-    public void addUsuario(String nombre, String apellido, String id, String email, String telefono ) {
-        this.usuario = new Usuario(nombre, apellido, id, email, telefono);
+    public void addUsuario(String nombre, String apellido, String id, String email, String telefono, Departamento departamento, Rol rol) {
+        this.usuario = new Usuario(nombre, apellido, id, email, telefono, departamento, rol);
     }
 }
