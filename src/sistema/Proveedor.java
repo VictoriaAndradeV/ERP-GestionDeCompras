@@ -2,7 +2,7 @@ package sistema;
 import java.util.ArrayList;
 import java.util.List;
 
-//hereda atributos de Usuario
+//hereda atributos de Contacto
 public class Proveedor extends Contacto {
     private List<String> productos;
     private String ruc;
