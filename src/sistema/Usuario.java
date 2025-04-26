@@ -6,9 +6,10 @@ public class Usuario extends Contacto{
     private Rol rol;
 
 
-    public Usuario(String nombre, String apellido, String id, String email, String telefono) {
+    public Usuario(String nombre, String apellido, String id, String email, String telefono, Departamento departamento, Rol rol) {
         super(nombre, apellido, id, email, telefono);
-
+        this.departamento = departamento;
+        this.rol = rol;
     }
 
     public Departamento getDepartamento() {
