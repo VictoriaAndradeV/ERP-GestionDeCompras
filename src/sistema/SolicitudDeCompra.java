@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+
 public class SolicitudDeCompra {
     Usuario usuario;
     Estado estado;
+    private String numeroSolicitud;
     private List<DetalleSolicitud> detalleSolicitud;
     private GregorianCalendar fechaSolicitud;
 
@@ -49,9 +51,12 @@ public class SolicitudDeCompra {
     public void aprobarEstado(Usuario evaluador, boolean aprobar) {
         boolean jefe= evaluador.getRol()==Rol.JEFE_DE_DEPARTAMENTO;
         boolean mismoDepartamento= evaluador.getDepartamento()==usuario.getDepartamento();
-        if (evaluador.getRol() == Rol.JEFE_DE_DEPARTAMENTO &&
-                evaluador.getDepartamento() == usuario.getDepartamento()) {
-            this.estado=aprobar? Estado.APROBADO:Estado.RECHAZADO;
+        if (evaluador.getRol() == Rol.JEFE_DE_DEPARTAMENTO && evaluador.getDepartamento() == usuario.getDepartamento()) {
+            if (aprobar) {
+                this.estado = Estado.APROBADO;
+            } else {
+                this.estado = Estado.RECHAZADO;
+            }
             System.out.println("Estado de la solicitud: "+ (aprobar ? "aprobada" : "rechazada") );
         }else{
             System.out.println("No tiene permiso para aprobar el solicitud");
