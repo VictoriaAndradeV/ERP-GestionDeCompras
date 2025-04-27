@@ -259,4 +259,20 @@ public class ShowConsole {
         System.out.println("No se encontro ninguna solicitud con ese numero");
     }
 
+    //4
+    public String pedirNombreSolicitante() {
+        System.out.print("Ingrese el nombre del solicitante: ");
+        return scanner.nextLine();
+    }
+
+    public boolean deseaAgregarProducto() {
+        System.out.print("¿Desea agregar un producto a la solicitud? (true/false): ");
+        return Boolean.parseBoolean(scanner.nextLine());
+    }
+
+    public int pedirCantidadProducto() {
+        System.out.print("Ingrese la cantidad del producto: ");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
 }
