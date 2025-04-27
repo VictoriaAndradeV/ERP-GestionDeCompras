@@ -47,4 +47,14 @@ public class Proveedor extends Contacto {
     public void addProductos(String producto){
         productos.add(producto);
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nProveedor{" +
+                "productos=" + productos +
+                ", ruc='" + ruc + '\'' +
+                ", direccion='" + direccion + '\'' +
+                '}';
+    }
+
 }

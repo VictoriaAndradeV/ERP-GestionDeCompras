@@ -64,10 +64,10 @@ public abstract class Producto {
     public String toString() {
         return "Producto{" +
                 "id='" + id + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", precioUnitario=" + precioUnitario +
-                ", unidad=" + unidad +
+                ", nombre = '" + nombre + '\'' +
+                ", descripcion ='" + descripcion + '\'' +
+                ", precioUnitario =" + precioUnitario +
+                ", unidad =" + unidad +
                 '}';
     }
 }
