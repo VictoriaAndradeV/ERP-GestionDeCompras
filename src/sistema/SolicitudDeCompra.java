@@ -31,19 +31,21 @@ public class SolicitudDeCompra {
     public GregorianCalendar getFechaSolicitud() {
         return fechaSolicitud;
     }
-
+    public String getNumeroSolicitud() {
+        return numeroSolicitud;
+    }
     public void setFechaSolicitud(GregorianCalendar fechaSolicitud) {
         this.fechaSolicitud = fechaSolicitud;
     }
 
-    public void addUsuario(String nombre, String apellido, String id, String email, String telefono ) {
+    public void addUsuario(String nombre, String apellido, String id, String email, String telefono) {
         this.usuario = new Usuario(nombre, apellido, id, email, telefono);
     }
 
     public double calcularPrecio() {
         double total= 0.0;
         for (DetalleSolicitud dS : detalleSolicitud) {
-            total += calcularPrecio();
+            total += dS.calcularTotal();
         }
         return total;
     }
@@ -63,4 +65,14 @@ public class SolicitudDeCompra {
         }
     }
 
+    @Override
+    public String toString() {
+        return "SolicitudDeCompra{" +
+                "usuario=" + usuario +
+                ", estado=" + estado +
+                ", numeroSolicitud='" + numeroSolicitud + '\'' +
+                ", detalleSolicitud=" + detalleSolicitud +
+                ", fechaSolicitud=" + fechaSolicitud +
+                '}';
+    }
 }
