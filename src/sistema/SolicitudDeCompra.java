@@ -2,6 +2,8 @@ package sistema;
 import Models.DetalleSolicitud;
 import enums.Estado;
 import enums.Rol;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -14,6 +16,7 @@ public class SolicitudDeCompra {
     private String numeroSolicitud;
     private List<DetalleSolicitud> detalleSolicitud;
     private GregorianCalendar fechaSolicitud;
+    private LocalDate fechaSolicitudEntrada;
 
     public SolicitudDeCompra() {
         detalleSolicitud = new ArrayList<>();

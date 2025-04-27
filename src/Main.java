@@ -1,18 +1,17 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import Models.DetalleSolicitud;
+import java.time.LocalDate;
+import Enums.UnidadDeMedida;
+import Models.*;
 import sistema.Proveedor;
 import sistema.Usuario;
-import Models.Producto;
 import sistema.SolicitudDeCompra;
 import views.ShowConsole;
 import controller.BusquedaBinaria;
 import java.util.GregorianCalendar;
 
 public class Main {
-    static ShowConsole console = new ShowConsole();
     static Scanner scanner = new Scanner(System.in);
     static List<Proveedor> proveedores = new ArrayList<>();
     static List<Producto> productos = new ArrayList<>();
@@ -37,6 +36,9 @@ public class Main {
                     Proveedor proveedor = showConsole.registrarProveedor();
                     proveedores.add(proveedor);
                     break;
+                case 3:
+                    registrarProducto();
+                    break;
                 case 4:
                     registrarSolicitudCompra();
                     break;
@@ -58,7 +60,6 @@ public class Main {
                         }
                     }
                     break;
-
                 case 9:
                     if(proveedores.isEmpty()) {
                         System.out.println("No existen proveedores registrados");
@@ -91,8 +92,6 @@ public class Main {
                         }
                     }
                     break;
-                case 15:
-                    break;
                 case 12:
                     aprobarRechazarSolicitud();
                     break;
@@ -110,6 +109,7 @@ public class Main {
 
 
     }
+    //4
     public static void registrarSolicitudCompra() {
         ShowConsole showConsole = new ShowConsole();
         String nombreSolicitante= showConsole.pedirNombreSolicitante();
@@ -128,7 +128,7 @@ public class Main {
         }
 
         //crea un nuevo número de solicitud
-        String numeroSolicitud = "SC" + String.format("%03d", contadorDeSolicitudes);
+        String numeroSolicitud = "Solicitud Compra" + String.format("%03d", contadorDeSolicitudes);//convierte a un numero de minimo 3 digitos y pone 0's adelante
         contadorDeSolicitudes++; //sube el contador para la proxima solicitud
 
         //crea la nueva solicitud
@@ -136,7 +136,7 @@ public class Main {
         nuevaSolicitud.setNumeroSolicitud(numeroSolicitud);
         nuevaSolicitud.setUsuario(usuario);
         nuevaSolicitud.setEstado(enums.Estado.SOLICITADA);
-        nuevaSolicitud.setFechaSolicitud(new GregorianCalendar());
+    //--    nuevaSolicitud.setFechaSolicitud(new GregorianCalendar());
 
         //agregar productos
         boolean seguirAgregando = true;
@@ -156,9 +156,7 @@ public class Main {
             if (productoSeleccionado == null) {
                 System.out.println("No se encontró el producto");
             } else {
-
-                System.out.println("Ingrese la cantidad del producto:");
-                int cantidad = Integer.parseInt(scanner.nextLine());
+                int cantidad=showConsole.pedirCantidadProducto();
 
                 //crea un detalle de solicitud y agregarlo
                 DetalleSolicitud detalle = new DetalleSolicitud(productoSeleccionado, cantidad, "Justificación no disponible");
@@ -167,8 +165,7 @@ public class Main {
             }
 
 
-            System.out.println("¿Desea agregar otro producto? (true/false):");
-            seguirAgregando = Boolean.parseBoolean(scanner.nextLine());
+            seguirAgregando = showConsole.deseaAgregarProducto();
         }
 
         solicitudes.add(nuevaSolicitud);
@@ -201,7 +198,7 @@ public class Main {
 
     public static void aprobarRechazarSolicitud() {
         ShowConsole showConsole = new ShowConsole();
-        String numero = showConsole.pedirNumeroSolicitud(); // Pedir número de solicitud
+        String numero = showConsole.pedirNumeroSolicitud(); //pedimos numero de solicitud
 
         SolicitudDeCompra solicitudEncontrada = null;
         for (SolicitudDeCompra solicitud : solicitudes) {
@@ -219,8 +216,73 @@ public class Main {
         System.out.println("Ingrese los datos del jefe evaluador:");
         Usuario evaluador = showConsole.registrarUsuario();
 
-        boolean aprobar = showConsole.pedirDecisionAprobacion(); //pedir si aprueba o no
+        boolean aprobar = showConsole.pedirDecisionAprobacion(); //se aprueba o no
 
         solicitudEncontrada.aprobarEstado(evaluador, aprobar); //se llama al metodo de SolicitudDeCompra
     }
+//3
+    public static void registrarProducto() {
+        System.out.println("Seleccione el tipo de producto:");
+        System.out.println("1. Producto Comestible");
+        System.out.println("2. Producto de Limpieza");
+        System.out.println("3. Producto Tecnológico");
+        int tipo = Integer.parseInt(scanner.nextLine());
+
+        //datos generales
+        System.out.println("Ingrese el ID del producto:");
+        String id = scanner.nextLine();
+
+        System.out.println("Ingrese el nombre del producto:");
+        String nombre = scanner.nextLine();
+
+        System.out.println("Ingrese la descripción del producto:");
+        String descripcion = scanner.nextLine();
+
+        System.out.println("Ingrese el precio unitario:");
+        double precioUnitario = Double.parseDouble(scanner.nextLine());
+
+        //opciones de unidad de medida
+        System.out.println("Seleccione la unidad de medida:");
+        for (UnidadDeMedida unidad : UnidadDeMedida.values()) { //se recorre enums
+            System.out.println("- " + unidad);                  // y se imprime
+        }
+        String unidadIngresada = scanner.nextLine().toUpperCase();//convertimos a mayus ;ara que no haya errores
+        UnidadDeMedida unidad = UnidadDeMedida.valueOf(unidadIngresada);//se convierte el txt en UnidadMedida
+
+        Producto nuevoProducto = null;
+
+        //pedimos datos especificos
+        if (tipo == 1) {
+            System.out.println("Ingrese el peso en kg o gramos:");
+            double peso = Double.parseDouble(scanner.nextLine());
+
+            System.out.println("Ingrese la fecha de caducidad (AÑO-MES-DIA):");
+            LocalDate fechaCaducidad = LocalDate.parse(scanner.nextLine());
+
+            System.out.println("Ingrese la fecha de elaboración (AÑO-MES-DIA):");
+            LocalDate fechaElaboracion = LocalDate.parse(scanner.nextLine());
+
+             nuevoProducto= new ProductoComestible(id, nombre, descripcion, precioUnitario, unidad, peso, fechaCaducidad, fechaElaboracion);
+
+        } else if (tipo == 2) {
+            System.out.println("Ingrese el volumen en litros:");
+            double volumen = Double.parseDouble(scanner.nextLine());
+
+            nuevoProducto= new ProductoLimpieza(id, nombre, descripcion, precioUnitario, unidad, volumen);
+
+        } else if (tipo == 3) {
+            System.out.println("Ingrese la garantía en meses:");
+            int garantiaMeses = Integer.parseInt(scanner.nextLine());
+
+            nuevoProducto = new ProductoTecnologico(id, nombre, descripcion, precioUnitario, unidad, garantiaMeses);
+        } else {
+            System.out.println("Opción invalida.");
+            return;
+        }
+
+        //guarda en la lista
+        productos.add(nuevoProducto);
+        System.out.println("Producto registrado correctamente.");
+    }
+
 }
