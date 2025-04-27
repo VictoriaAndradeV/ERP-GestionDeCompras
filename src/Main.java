@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.time.LocalDate;
-import Enums.UnidadDeMedida;
 import Models.*;
 import sistema.Proveedor;
 import sistema.Usuario;
@@ -13,14 +11,17 @@ import controller.BusquedaBinaria;
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     static List<Proveedor> proveedores = new ArrayList<>();
-    static List<Producto> productos = new ArrayList<>();
     static List<SolicitudDeCompra> solicitudes = new ArrayList<>();
     static List<Usuario> usuarios = new ArrayList<>();
     static int contadorDeSolicitudes = 1;
+    static List<Producto> productos = new ArrayList<>();
+    static ShowConsole showConsole = new ShowConsole(productos);
+
+
 
     public static void main(String[] args) {
 
-        ShowConsole showConsole = new ShowConsole();
+        ShowConsole showConsole = new ShowConsole(productos);
         BusquedaBinaria binaria = new BusquedaBinaria();
 
         boolean continuar = true;
@@ -37,7 +38,7 @@ public class Main {
                     proveedores.add(proveedor);
                     break;
                 case 3:
-                    registrarProducto();
+                    showConsole.registrarProducto();
                     break;
                 case 4:
                     registrarSolicitudCompra();
@@ -138,7 +139,7 @@ public class Main {
     }
     //4
     public static void registrarSolicitudCompra() {
-        ShowConsole showConsole = new ShowConsole();
+        ShowConsole showConsole = new ShowConsole(productos);
         String nombreSolicitante= showConsole.pedirNombreSolicitante();
         Usuario usuario = null;
 
@@ -200,7 +201,7 @@ public class Main {
 
 
     public static void calcularTotalSolicitud() {
-        ShowConsole showConsole = new ShowConsole();
+        ShowConsole showConsole = new ShowConsole(productos);
         SolicitudDeCompra solicitudEncontrada = null;
         String numero = showConsole.pedirNumeroSolicitudCalcular();
 
@@ -222,7 +223,7 @@ public class Main {
     }
 
     public static void aprobarRechazarSolicitud() {
-        ShowConsole showConsole = new ShowConsole();
+        ShowConsole showConsole = new ShowConsole(productos);
         String numero = showConsole.pedirNumeroSolicitud(); //pedimos numero de solicitud
 
         SolicitudDeCompra solicitudEncontrada = null;
@@ -247,66 +248,6 @@ public class Main {
     }
 
 //3
-    public static void registrarProducto() {
 
-        ShowConsole showConsole = new ShowConsole();
-        int opcion = showConsole.seleccioneTipoProducto();
-
-        //datos generales
-        System.out.println("Ingrese el ID del producto:");
-        String id = scanner.nextLine();
-
-        System.out.println("Ingrese el nombre del producto:");
-        String nombre = showConsole.validarIngresoLetras(scanner);
-
-        System.out.println("Ingrese la descripción del producto:");
-        String descripcion = scanner.nextLine();
-
-        System.out.println("Ingrese el precio unitario:");
-        double precioUnitario = Double.parseDouble(scanner.nextLine());
-
-        //opciones de unidad de medida
-        System.out.println("Seleccione la unidad de medida:");
-        for (UnidadDeMedida unidad : UnidadDeMedida.values()) { //se recorre enums
-            System.out.println("- " + unidad);                  // y se imprime
-        }
-        String unidadIngresada = scanner.nextLine().toUpperCase();//convertimos a mayus ;ara que no haya errores
-        UnidadDeMedida unidad = UnidadDeMedida.valueOf(unidadIngresada);//se convierte el txt en UnidadMedida
-
-        Producto nuevoProducto = null;
-
-        switch(opcion){
-            case 1:
-                System.out.println("Ingrese el peso en kg o gramos:");
-                double peso = Double.parseDouble(scanner.nextLine());
-
-                System.out.println("Ingrese la fecha de caducidad (AÑO-MES-DIA):");
-                LocalDate fechaCaducidad = LocalDate.parse(scanner.nextLine());
-
-                System.out.println("Ingrese la fecha de elaboración (AÑO-MES-DIA):");
-                LocalDate fechaElaboracion = LocalDate.parse(scanner.nextLine());
-
-                nuevoProducto= new ProductoComestible(id, nombre, descripcion, precioUnitario, unidad, peso, fechaCaducidad, fechaElaboracion);
-                break;
-            case 2:
-                System.out.println("Ingrese el volumen en litros:");
-                double volumen = Double.parseDouble(scanner.nextLine());
-
-                nuevoProducto= new ProductoLimpieza(id, nombre, descripcion, precioUnitario, unidad, volumen);
-                break;
-            case 3:
-                System.out.println("Ingrese la garantía en meses:");
-                int garantiaMeses = Integer.parseInt(scanner.nextLine());
-
-                nuevoProducto = new ProductoTecnologico(id, nombre, descripcion, precioUnitario, unidad, garantiaMeses);
-                break;
-            case 4:
-                return;
-        }
-
-        //guarda en la lista
-        productos.add(nuevoProducto);
-        System.out.println("Producto registrado correctamente.");
-    }
 
 }

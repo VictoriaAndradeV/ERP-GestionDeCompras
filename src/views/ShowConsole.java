@@ -1,15 +1,27 @@
 package views;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
+import Enums.UnidadDeMedida;
+import Models.ProductoComestible;
+import Models.ProductoLimpieza;
+import Models.ProductoTecnologico;
 import sistema.*;
 import enums.Rol;
 import Models.Producto;
-import Enums.UnidadDeMedida;
+
 
 public class ShowConsole {
 
     private Scanner scanner= new Scanner(System.in);
+    private List<Producto> productos;
+    public ShowConsole(List<Producto> productos) {
+        this.scanner = new Scanner(System.in);
+        this.productos = productos;
+    }
+
 
     //Menú de opciones, retorna un valor tipo int, al seleccionar una opción
     public int showMenu(){
@@ -298,4 +310,66 @@ public class ShowConsole {
         return Integer.parseInt(scanner.nextLine());
     }
 
+
+//3
+    public void registrarProducto() {
+        Scanner scanner = new Scanner(System.in);
+        int opcion = seleccioneTipoProducto();
+
+        //datos generales
+        System.out.println("Ingrese el ID del producto:");
+        String id = scanner.nextLine();
+
+        System.out.println("Ingrese el nombre del producto:");
+        String nombre = validarIngresoLetras(scanner);
+
+        System.out.println("Ingrese la descripción del producto:");
+        String descripcion = scanner.nextLine();
+
+        System.out.println("Ingrese el precio unitario:");
+        double precioUnitario = Double.parseDouble(scanner.nextLine());
+
+        //opciones de unidad de medida
+        System.out.println("Seleccione la unidad de medida:");
+        for (UnidadDeMedida unidad : UnidadDeMedida.values()) { //se recorre enums
+            System.out.println("- " + unidad);                  // y se imprime
+        }
+        String unidadIngresada = scanner.nextLine().toUpperCase();//convertimos a mayus ;ara que no haya errores
+        UnidadDeMedida unidad = UnidadDeMedida.valueOf(unidadIngresada);//se convierte el txt en UnidadMedida
+
+        Producto nuevoProducto = null;
+
+        switch(opcion){
+            case 1:
+                System.out.println("Ingrese el peso en kg o gramos:");
+                double peso = Double.parseDouble(scanner.nextLine());
+
+                System.out.println("Ingrese la fecha de caducidad (AÑO-MES-DIA):");
+                LocalDate fechaCaducidad = LocalDate.parse(scanner.nextLine());
+
+                System.out.println("Ingrese la fecha de elaboración (AÑO-MES-DIA):");
+                LocalDate fechaElaboracion = LocalDate.parse(scanner.nextLine());
+
+                nuevoProducto= new ProductoComestible(id, nombre, descripcion, precioUnitario, unidad, peso, fechaCaducidad, fechaElaboracion);
+                break;
+            case 2:
+                System.out.println("Ingrese el volumen en litros:");
+                double volumen = Double.parseDouble(scanner.nextLine());
+
+                nuevoProducto= new ProductoLimpieza(id, nombre, descripcion, precioUnitario, unidad, volumen);
+                break;
+            case 3:
+                System.out.println("Ingrese la garantía en meses:");
+                int garantiaMeses = Integer.parseInt(scanner.nextLine());
+
+                nuevoProducto = new ProductoTecnologico(id, nombre, descripcion, precioUnitario, unidad, garantiaMeses);
+                break;
+            case 4:
+                return;
+        }
+
+        //guarda en la lista
+        productos.add(nuevoProducto);
+        System.out.println("Producto registrado correctamente.");
+    }
 }
