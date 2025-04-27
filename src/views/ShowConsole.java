@@ -1,10 +1,8 @@
 package views;
 
 import java.util.Scanner;
-import sistema.Contacto;
-import sistema.Departamento;
-import sistema.Proveedor;
-import sistema.Usuario;
+
+import sistema.*;
 import enums.Rol;
 
 public class ShowConsole {
@@ -13,7 +11,7 @@ public class ShowConsole {
 
     //Menú de opciones, retorna un valor tipo int, al seleccionar una opción
     public int showMenu(){
-        System.out.println("--------- Sistema de Gestión de Compras ERP --------- ");
+        System.out.println("===== SISTEMA DE GESTIÓN DE COMPRAS ERP =====");
         System.out.println("1. Registrar proveedor");
         System.out.println("2. Registrar producto");
         System.out.println("3. Registrar solicitud de compra");
@@ -23,9 +21,9 @@ public class ShowConsole {
         System.out.println("7. Buscar proveedor por ID");
         System.out.println("8. Buscar producto por nombre");
         System.out.println("9. Buscar solicitud por número");
-        System.out.println("10. Aprobar / Rechazar solicitud de compra");
-        System.out.println("11. Calcular total de una solicitud");
-        System.out.println("12. Salir");
+        System.out.println("13. Aprobar / Rechazar solicitud de compra");
+        System.out.println("14. Calcular total de una solicitud");
+        System.out.println("15. Salir");
         int opcion = validarOpcion(scanner, 1, 15); //metodo que valida la entrada de numeros en el rango 1-5
         return opcion;                                     //valida el ingreso de numeros, no permite ingresar letras o caracteres especiales
     }
@@ -203,5 +201,17 @@ public class ShowConsole {
                 scanner.nextLine(); //limpiar token invalido ingresado, para evitar que scanner se trabe
             }
         } while (true);
+
     }
+
+    public String pedirNumeroSolicitud() {
+        System.out.print("Ingrese el número de solicitud: ");
+        return scanner.nextLine();
+    }
+
+    public boolean pedirDecisionAprobacion() {
+        System.out.print("¿Desea aprobar la solicitud? (true/false): ");
+        return Boolean.parseBoolean(scanner.nextLine());
+    }
+
 }
