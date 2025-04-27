@@ -9,7 +9,6 @@ import sistema.Usuario;
 import sistema.SolicitudDeCompra;
 import views.ShowConsole;
 import controller.BusquedaBinaria;
-import java.util.GregorianCalendar;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
@@ -25,14 +24,15 @@ public class Main {
         BusquedaBinaria binaria = new BusquedaBinaria();
 
         boolean continuar = true;
+
         while (continuar) {
             int opcion = showConsole.showMenu();
             switch (opcion) {
-                case 1:
+                case 1: // agrega usuario a la lista de usuarios
                     Usuario usuario = showConsole.registrarUsuario();
                     usuarios.add(usuario);
                     break;
-                case 2:
+                case 2: //Al ingresar un proveedor, se agrega a la lista de proveedores
                     Proveedor proveedor = showConsole.registrarProveedor();
                     proveedores.add(proveedor);
                     break;
@@ -42,52 +42,83 @@ public class Main {
                 case 4:
                     registrarSolicitudCompra();
                     break;
-                case 5:
-                    if(usuarios.isEmpty()) {
+                case 5: //Muestra los usuarios ingresados
+                    if (usuarios.isEmpty()) {
                         System.out.println("No existen usuarios registrados");
-                    } else{
-                        for(Usuario u : usuarios) {
+                    } else {
+                        for (Usuario u : usuarios) {
                             System.out.println(u);
                         }
                     }
                     break;
-                case 6:
-                    if(proveedores.isEmpty()) {
+                case 6: //Muestra la lista de proveedores
+                    if (proveedores.isEmpty()) {
                         System.out.println("No existen proveedores registrados");
                     } else {
-                        for(Proveedor pro : proveedores) {
+                        for (Proveedor pro : proveedores) {
                             System.out.println(pro);
                         }
                     }
                     break;
+                case 7:
+                    if (productos.isEmpty()) {
+                        System.out.println("No existen productos registrados");
+                    } else {
+                        for (Producto producto : productos) {
+                            System.out.println(producto);
+                        }
+                    }
+                    break;
+                case 8:
+                    if (solicitudes.isEmpty()) {
+                        System.out.println("No existe solicitud de compra registrada");
+                    } else {
+                        for (SolicitudDeCompra sc : solicitudes) {
+                            System.out.println(sc);
+                        }
+                    }
+                    break;
                 case 9:
-                    if(proveedores.isEmpty()) {
+                    if (proveedores.isEmpty()) {
                         System.out.println("No existen proveedores registrados");
-                    } else{
+                    } else {
                         String idBuscado = showConsole.iputIDProveedor();
                         int index = binaria.buscarProveedorID(proveedores, idBuscado);
 
-                        if(index == -1){
+                        if (index == -1) {
                             System.out.println("Proveedor encontrado");
                             System.out.println(proveedores.get(index));
-                        }else{
+                        } else {
                             System.out.println("Proveedor no registrado");
                         }
                     }
                     break;
                 case 10:
+                    if (productos.isEmpty()) {
+                        System.out.println("No existen productos registrados");
+                    } else {
+                        String nombreBuscado = showConsole.iputNombreProducto();
+                        int index = binaria.buscarProveedorID(proveedores, nombreBuscado);
+
+                        if (index == -1) {
+                            System.out.println("Producto encontrado");
+                            System.out.println(productos.get(index));
+                        } else {
+                            System.out.println("Producto no registrado");
+                        }
+                    }
                     break;
                 case 11:
-                    if(solicitudes.isEmpty()) {
+                    if (solicitudes.isEmpty()) {
                         System.out.println("No existen solicitudes de compra");
-                    } else{
+                    } else {
                         String idBuscado = showConsole.iputIDSolicitud();
                         int index = binaria.buscarSolicitudID(solicitudes, idBuscado);
 
-                        if(index == -1){
+                        if (index == -1) {
                             System.out.println("Proveedor encontrado");
                             System.out.println(solicitudes.get(index));
-                        }else{
+                        } else {
                             System.out.println("Solicitud no registrada");
                         }
                     }
@@ -104,17 +135,12 @@ public class Main {
                     break;
             }
         }
-
-
-
-
     }
     //4
     public static void registrarSolicitudCompra() {
         ShowConsole showConsole = new ShowConsole();
         String nombreSolicitante= showConsole.pedirNombreSolicitante();
         Usuario usuario = null;
-
 
         for(Usuario u : usuarios) {
             if (u.getNombre().equalsIgnoreCase(nombreSolicitante)) {
@@ -163,7 +189,6 @@ public class Main {
                 nuevaSolicitud.agregarDetalle(detalle);
                 System.out.println("Producto agregado correctamente a la solicitud.");
             }
-
 
             seguirAgregando = showConsole.deseaAgregarProducto();
         }
@@ -220,20 +245,19 @@ public class Main {
 
         solicitudEncontrada.aprobarEstado(evaluador, aprobar); //se llama al metodo de SolicitudDeCompra
     }
+
 //3
     public static void registrarProducto() {
-        System.out.println("Seleccione el tipo de producto:");
-        System.out.println("1. Producto Comestible");
-        System.out.println("2. Producto de Limpieza");
-        System.out.println("3. Producto Tecnológico");
-        int tipo = Integer.parseInt(scanner.nextLine());
+
+        ShowConsole showConsole = new ShowConsole();
+        int opcion = showConsole.seleccioneTipoProducto();
 
         //datos generales
         System.out.println("Ingrese el ID del producto:");
         String id = scanner.nextLine();
 
         System.out.println("Ingrese el nombre del producto:");
-        String nombre = scanner.nextLine();
+        String nombre = showConsole.validarIngresoLetras(scanner);
 
         System.out.println("Ingrese la descripción del producto:");
         String descripcion = scanner.nextLine();
@@ -251,33 +275,33 @@ public class Main {
 
         Producto nuevoProducto = null;
 
-        //pedimos datos especificos
-        if (tipo == 1) {
-            System.out.println("Ingrese el peso en kg o gramos:");
-            double peso = Double.parseDouble(scanner.nextLine());
+        switch(opcion){
+            case 1:
+                System.out.println("Ingrese el peso en kg o gramos:");
+                double peso = Double.parseDouble(scanner.nextLine());
 
-            System.out.println("Ingrese la fecha de caducidad (AÑO-MES-DIA):");
-            LocalDate fechaCaducidad = LocalDate.parse(scanner.nextLine());
+                System.out.println("Ingrese la fecha de caducidad (AÑO-MES-DIA):");
+                LocalDate fechaCaducidad = LocalDate.parse(scanner.nextLine());
 
-            System.out.println("Ingrese la fecha de elaboración (AÑO-MES-DIA):");
-            LocalDate fechaElaboracion = LocalDate.parse(scanner.nextLine());
+                System.out.println("Ingrese la fecha de elaboración (AÑO-MES-DIA):");
+                LocalDate fechaElaboracion = LocalDate.parse(scanner.nextLine());
 
-             nuevoProducto= new ProductoComestible(id, nombre, descripcion, precioUnitario, unidad, peso, fechaCaducidad, fechaElaboracion);
+                nuevoProducto= new ProductoComestible(id, nombre, descripcion, precioUnitario, unidad, peso, fechaCaducidad, fechaElaboracion);
+                break;
+            case 2:
+                System.out.println("Ingrese el volumen en litros:");
+                double volumen = Double.parseDouble(scanner.nextLine());
 
-        } else if (tipo == 2) {
-            System.out.println("Ingrese el volumen en litros:");
-            double volumen = Double.parseDouble(scanner.nextLine());
+                nuevoProducto= new ProductoLimpieza(id, nombre, descripcion, precioUnitario, unidad, volumen);
+                break;
+            case 3:
+                System.out.println("Ingrese la garantía en meses:");
+                int garantiaMeses = Integer.parseInt(scanner.nextLine());
 
-            nuevoProducto= new ProductoLimpieza(id, nombre, descripcion, precioUnitario, unidad, volumen);
-
-        } else if (tipo == 3) {
-            System.out.println("Ingrese la garantía en meses:");
-            int garantiaMeses = Integer.parseInt(scanner.nextLine());
-
-            nuevoProducto = new ProductoTecnologico(id, nombre, descripcion, precioUnitario, unidad, garantiaMeses);
-        } else {
-            System.out.println("Opción invalida.");
-            return;
+                nuevoProducto = new ProductoTecnologico(id, nombre, descripcion, precioUnitario, unidad, garantiaMeses);
+                break;
+            case 4:
+                return;
         }
 
         //guarda en la lista

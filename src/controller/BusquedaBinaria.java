@@ -1,5 +1,6 @@
 package controller;
 
+import Models.Producto;
 import sistema.Proveedor;
 import sistema.SolicitudDeCompra;
 
@@ -78,5 +79,40 @@ public class BusquedaBinaria {
         return -1; //no se encontro el id buscado
     }
 
+
+    public int buscarProductoNombre(List<Producto> productos, String nombreProducto) {
+
+        for (int i = 1; i < productos.size(); i++) {
+            Producto pasajero = productos.get(i);
+            int j = i - 1;
+
+            while (j >= 0 && productos.get(j).getNombre().compareToIgnoreCase(pasajero.getNombre()) > 0) {
+                productos.set(j + 1, productos.get(j));
+                j--;
+            }
+            productos.set(j + 1, pasajero);
+        }
+
+        int bajo = 0;
+        int alto = (productos.size() - 1);
+
+        while(bajo <= alto){
+
+            int central = (bajo + alto)/2;
+            Producto productoCentral = productos.get(central);
+
+            int comparacion = productoCentral.getId().compareToIgnoreCase(nombreProducto);
+
+            if(comparacion == 0){ //si es ==0 significa que las comparaciones entre ambos nombres coinciden
+                return central;
+            }
+            if(comparacion < 0){ //si alfabeticamente se encuentra antes, va a la derecha
+                bajo = central + 1;
+            }else {
+                alto = central - 1;
+            }
+        }
+        return -1; //no se encontro el id buscado
+    }
 
 }

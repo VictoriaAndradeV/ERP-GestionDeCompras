@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import sistema.*;
 import enums.Rol;
+import Models.Producto;
+import Enums.UnidadDeMedida;
 
 public class ShowConsole {
 
@@ -30,6 +32,15 @@ public class ShowConsole {
         return opcion;                                     //valida el ingreso de numeros, no permite ingresar letras o caracteres especiales
     }
 
+    public int seleccioneTipoProducto(){
+        System.out.println("Seleccione el tipo de producto:");
+        System.out.println("1. Producto Comestible");
+        System.out.println("2. Producto de Limpieza");
+        System.out.println("3. Producto Tecnológico");
+        System.out.println("4. Salir");
+        return validarOpcion(scanner, 1, 4);
+    }
+
     public Contacto registrarContacto(){
         System.out.println("--------- Registrar Contacto --------- ");
         System.out.println("Nombre");
@@ -39,9 +50,9 @@ public class ShowConsole {
         System.out.println("ID");
         String id = scanner.nextLine();
         System.out.println("Email");
-        String email = validarIngresoLetras(scanner);
+        String email = validarEmail(scanner);
         System.out.println("Telefono");
-        String telefono = validarIngresoLetras(scanner);
+        String telefono = validarIngresoTelefono(scanner);
         return new Contacto(nombre, apellido, id, email, telefono);
     }
 
@@ -133,7 +144,7 @@ public class ShowConsole {
     }
 
     public String iputNombreProducto(){
-        System.out.println("Ingrese el nombre del proveedor que desea buscar -> ");
+        System.out.println("Ingrese el nombre del producto que desea buscar -> ");
         String nombre = scanner.nextLine();
         return nombre;
     }
@@ -211,7 +222,7 @@ public class ShowConsole {
             }
         } while (true);
     }
-
+    //validar el ingreso de numero de empleados
     public int validarIngresoNumeros(Scanner scanner){
 
         do {
