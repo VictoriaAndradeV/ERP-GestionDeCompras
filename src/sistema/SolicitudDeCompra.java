@@ -23,7 +23,12 @@ public class SolicitudDeCompra {
         this.estado = estado;
         detalleSolicitud = new ArrayList<>();
     }
-
+    public void setNumeroSolicitud(String numeroSolicitud) {
+        this.numeroSolicitud = numeroSolicitud;
+    }
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
     public Usuario getUsuario() {
         return usuario;
     }
@@ -40,6 +45,13 @@ public class SolicitudDeCompra {
 
     public void addUsuario(String nombre, String apellido, String id, String email, String telefono, Departamento departamento, Rol rol) {
         this.usuario = new Usuario(nombre, apellido, id, email, telefono, departamento, rol);
+    }
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    public void agregarDetalle(DetalleSolicitud detalle) {
+        this.detalleSolicitud.add(detalle);
     }
 
     public double calcularPrecio() {
