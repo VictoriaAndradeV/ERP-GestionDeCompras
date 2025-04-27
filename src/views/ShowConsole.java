@@ -120,6 +120,12 @@ public class ShowConsole {
         return rolAgregado;
     }
 
+    public String iputID(){
+        System.out.println("Ingrese el ID del proveedor que desea buscar ->");
+        String id = scanner.nextLine();
+        return id;
+    }
+
     public int validarOpcion(Scanner scanner, int min, int max){
         int num;
 
