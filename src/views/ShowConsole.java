@@ -22,7 +22,7 @@ public class ShowConsole {
         System.out.println("8. Listar solicitudes de compra");
         System.out.println("9. Buscar proveedor por ID");
         System.out.println("10. Buscar producto por nombre");
-        System.out.println("11. Buscar solicitud por número");
+        System.out.println("11. Buscar solicitud por id");
         System.out.println("12. Aprobar / Rechazar solicitud de compra");
         System.out.println("13. Calcular total de una solicitud");
         System.out.println("14. Salir");
@@ -119,11 +119,23 @@ public class ShowConsole {
         System.out.println("SUPERVISOR - JEFE_DE_DEPARTAMENTO");
         return rolAgregado;
     }
-
-    public String iputID(){
+    //Se ingresa el ID del proveedor que se desea ingresar
+    public String iputIDProveedor(){
         System.out.println("Ingrese el ID del proveedor que desea buscar ->");
         String id = scanner.nextLine();
         return id;
+    }
+
+    public String iputIDSolicitud(){
+        System.out.println("Ingrese el ID de la Solicitud de Compra que desea buscar ->");
+        String id = scanner.nextLine();
+        return id;
+    }
+
+    public String iputNombreProducto(){
+        System.out.println("Ingrese el nombre del proveedor que desea buscar -> ");
+        String nombre = scanner.nextLine();
+        return nombre;
     }
 
     public int validarOpcion(Scanner scanner, int min, int max){

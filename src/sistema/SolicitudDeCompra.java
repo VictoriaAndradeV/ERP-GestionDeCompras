@@ -10,6 +10,7 @@ import java.util.List;
 public class SolicitudDeCompra {
     Usuario usuario;
     Estado estado;
+    private String id;
     private String numeroSolicitud;
     private List<DetalleSolicitud> detalleSolicitud;
     private GregorianCalendar fechaSolicitud;
@@ -18,9 +19,10 @@ public class SolicitudDeCompra {
         detalleSolicitud = new ArrayList<>();
     }
 
-    public SolicitudDeCompra(GregorianCalendar fechaSolicitud, Estado estado) {
+    public SolicitudDeCompra(GregorianCalendar fechaSolicitud, Estado estado, String id) {
         this.fechaSolicitud=fechaSolicitud;
         this.estado = estado;
+        this.id = id;
         detalleSolicitud = new ArrayList<>();
     }
     public void setNumeroSolicitud(String numeroSolicitud) {
@@ -41,6 +43,13 @@ public class SolicitudDeCompra {
     }
     public void setFechaSolicitud(GregorianCalendar fechaSolicitud) {
         this.fechaSolicitud = fechaSolicitud;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void addUsuario(String nombre, String apellido, String id, String email, String telefono, Departamento departamento, Rol rol) {
@@ -77,14 +86,16 @@ public class SolicitudDeCompra {
         }
     }
 
+
     @Override
     public String toString() {
         return "SolicitudDeCompra{" +
-                "usuario=" + usuario +
-                ", estado=" + estado +
-                ", numeroSolicitud='" + numeroSolicitud + '\'' +
-                ", detalleSolicitud=" + detalleSolicitud +
-                ", fechaSolicitud=" + fechaSolicitud +
+                "Usuario = " + usuario +
+                ", Estado = " + estado +
+                ", id = '" + id + '\'' +
+                ", numeroSolicitud = '" + numeroSolicitud + '\'' +
+                ", detalleSolicitud =" + detalleSolicitud +
+                ", fechaSolicitud= " + fechaSolicitud +
                 '}';
     }
 }

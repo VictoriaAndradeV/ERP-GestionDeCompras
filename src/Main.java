@@ -8,6 +8,7 @@ import sistema.Usuario;
 import Models.Producto;
 import sistema.SolicitudDeCompra;
 import views.ShowConsole;
+import controller.BusquedaBinaria;
 import java.util.GregorianCalendar;
 
 public class Main {
@@ -22,6 +23,8 @@ public class Main {
     public static void main(String[] args) {
 
         ShowConsole showConsole = new ShowConsole();
+        BusquedaBinaria binaria = new BusquedaBinaria();
+
         boolean continuar = true;
         while (continuar) {
             int opcion = showConsole.showMenu();
@@ -54,6 +57,41 @@ public class Main {
                             System.out.println(pro);
                         }
                     }
+                    break;
+
+                case 9:
+                    if(proveedores.isEmpty()) {
+                        System.out.println("No existen proveedores registrados");
+                    } else{
+                        String idBuscado = showConsole.iputIDProveedor();
+                        int index = binaria.buscarProveedorID(proveedores, idBuscado);
+
+                        if(index == -1){
+                            System.out.println("Proveedor encontrado");
+                            System.out.println(proveedores.get(index));
+                        }else{
+                            System.out.println("Proveedor no registrado");
+                        }
+                    }
+                    break;
+                case 10:
+                    break;
+                case 11:
+                    if(solicitudes.isEmpty()) {
+                        System.out.println("No existen solicitudes de compra");
+                    } else{
+                        String idBuscado = showConsole.iputIDSolicitud();
+                        int index = binaria.buscarSolicitudID(solicitudes, idBuscado);
+
+                        if(index == -1){
+                            System.out.println("Proveedor encontrado");
+                            System.out.println(solicitudes.get(index));
+                        }else{
+                            System.out.println("Solicitud no registrada");
+                        }
+                    }
+                    break;
+                case 15:
                     break;
                 case 12:
                     aprobarRechazarSolicitud();
