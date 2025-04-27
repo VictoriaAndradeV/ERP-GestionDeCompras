@@ -9,6 +9,7 @@ import sistema.SolicitudDeCompra;
 import views.ShowConsole;
 
 public class Main {
+    static ShowConsole console = new ShowConsole();
     static Scanner scanner = new Scanner(System.in);
     static List<Proveedor> proveedores = new ArrayList<>();
     static List<Producto> productos = new ArrayList<>();
@@ -48,7 +49,13 @@ public class Main {
                         }
                     }
                     break;
-                case 15:
+                case 12:
+                    aprobarRechazarSolicitud();
+                    break;
+                case 13:
+                    calcularTotalSolicitud();
+                    break;
+                case 14:
                     continuar = false;
                     System.out.println("Saliendo del sistema...");
                     break;
@@ -56,8 +63,54 @@ public class Main {
         }
 
 
+
+
     }
 
+    public static void calcularTotalSolicitud() {
+        ShowConsole showConsole = new ShowConsole();
+        SolicitudDeCompra solicitudEncontrada = null;
+        String numero = showConsole.pedirNumeroSolicitudCalcular();
 
+        SolicitudDeCompra soicitudEcontrada= null;
+        for(SolicitudDeCompra s : solicitudes) {
+            if (s.getNumeroSolicitud().equalsIgnoreCase(numero)) {
+                soicitudEcontrada = s;
+                break;
+            }
+        }
 
+        if (soicitudEcontrada == null) {
+            showConsole.mostrarSolicitudNoEncontrada();
+            return;
+        }
+
+        double total = solicitudEncontrada.calcularPrecio();
+        showConsole.mostrarSolicitud(total);
+    }
+
+    public static void aprobarRechazarSolicitud() {
+        ShowConsole showConsole = new ShowConsole();
+        String numero = showConsole.pedirNumeroSolicitud(); // Pedir número de solicitud
+
+        SolicitudDeCompra solicitudEncontrada = null;
+        for (SolicitudDeCompra solicitud : solicitudes) {
+            if (solicitud.getNumeroSolicitud().equalsIgnoreCase(numero)) {
+                solicitudEncontrada = solicitud;
+                break;
+            }
+        }
+
+        if (solicitudEncontrada == null) {
+            showConsole.mostrarSolicitudNoEncontrada();
+            return;
+        }
+
+        System.out.println("Ingrese los datos del jefe evaluador:");
+        Usuario evaluador = showConsole.registrarUsuario();
+
+        boolean aprobar = showConsole.pedirDecisionAprobacion(); //pedir si aprueba o no
+
+        solicitudEncontrada.aprobarEstado(evaluador, aprobar); //se llama al metodo de SolicitudDeCompra
+    }
 }

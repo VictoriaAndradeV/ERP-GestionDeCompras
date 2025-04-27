@@ -7,7 +7,7 @@ import enums.Rol;
 
 public class ShowConsole {
 
-    private Scanner scanner;
+    private Scanner scanner= new Scanner(System.in);
 
     //Menú de opciones, retorna un valor tipo int, al seleccionar una opción
     public int showMenu(){
@@ -243,6 +243,20 @@ public class ShowConsole {
     public boolean pedirDecisionAprobacion() {
         System.out.print("¿Desea aprobar la solicitud? (true/false): ");
         return Boolean.parseBoolean(scanner.nextLine());
+    }
+
+    public String pedirNumeroSolicitudCalcular() {
+        System.out.print("Ingrese el numero de solicitud para calcular el total: ");
+        return scanner.nextLine();
+    }
+
+    public void mostrarSolicitud(double totalSolicitud) {
+        System.out.println("El total de la solicitu es: $"+ totalSolicitud);
+
+    }
+
+    public void mostrarSolicitudNoEncontrada() {
+        System.out.println("No se encontro ninguna solicitud con ese numero");
     }
 
 }
