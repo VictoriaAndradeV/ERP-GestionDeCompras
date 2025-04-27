@@ -13,11 +13,11 @@ public class Proveedor extends Contacto {
         productos = new ArrayList<String>();
     }
 
-    public Proveedor(String nombre, String apellido, String id, String email, String telefono) {
+    public Proveedor(String nombre, String apellido, String id, String email, String telefono, String ruc, String direccion) {
         super(nombre, apellido, id, email, telefono);
-        productos = new ArrayList<String>();
         this.ruc = ruc;
         this.direccion = direccion;
+        productos = new ArrayList<String>();
     }
 
     public List<String> getProductos() {
