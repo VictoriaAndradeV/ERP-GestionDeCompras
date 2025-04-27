@@ -12,19 +12,21 @@ public class ShowConsole {
     //Menú de opciones, retorna un valor tipo int, al seleccionar una opción
     public int showMenu(){
         System.out.println("===== SISTEMA DE GESTIÓN DE COMPRAS ERP =====");
-        System.out.println("1. Registrar proveedor");
-        System.out.println("2. Registrar producto");
-        System.out.println("3. Registrar solicitud de compra");
-        System.out.println("4. Listar proveedores");
-        System.out.println("5. Listar productos");
-        System.out.println("6. Listar solicitudes de compra");
-        System.out.println("7. Buscar proveedor por ID");
-        System.out.println("8. Buscar producto por nombre");
-        System.out.println("9. Buscar solicitud por número");
-        System.out.println("13. Aprobar / Rechazar solicitud de compra");
-        System.out.println("14. Calcular total de una solicitud");
-        System.out.println("15. Salir");
-        int opcion = validarOpcion(scanner, 1, 15); //metodo que valida la entrada de numeros en el rango 1-5
+        System.out.println("1. Registrar usuario");
+        System.out.println("2. Registrar proveedor");
+        System.out.println("3. Registrar producto");
+        System.out.println("4. Registrar solicitud de compra");
+        System.out.println("5. Listar usuarios");
+        System.out.println("6. Listar proveedores");
+        System.out.println("7. Listar productos");
+        System.out.println("8. Listar solicitudes de compra");
+        System.out.println("9. Buscar proveedor por ID");
+        System.out.println("10. Buscar producto por nombre");
+        System.out.println("11. Buscar solicitud por número");
+        System.out.println("12. Aprobar / Rechazar solicitud de compra");
+        System.out.println("13. Calcular total de una solicitud");
+        System.out.println("14. Salir");
+        int opcion = validarOpcion(scanner, 1, 14); //metodo que valida la entrada de numeros en el rango 1-5
         return opcion;                                     //valida el ingreso de numeros, no permite ingresar letras o caracteres especiales
     }
 
@@ -61,14 +63,24 @@ public class ShowConsole {
                 roles
         );
     }
-    /*
+
     public Proveedor registrarProveedor(){
         Contacto contacto = registrarContacto();
         System.out.println("--------- Registrar Proveedor --------- ");
-        System.out.println("Rol");
-    }*/
-
-
+        System.out.println("Ruc: ");
+        String ruc = validarRuc(scanner);
+        System.out.println("Dirección");
+        String direccion = validarIngresoLetras(scanner);
+        return new Proveedor(
+            contacto.getNombre(),
+            contacto.getApellido(),
+            contacto.getId(),
+            contacto.getEmail(),
+            contacto.getTelefono(),
+            ruc,
+            direccion
+        );
+    }
 
     public Departamento ingresoDepartamento(Scanner scanner){
         System.out.println("--------- Ingresar Departamento --------- ");
@@ -138,8 +150,8 @@ public class ShowConsole {
             System.out.println("--> ");
             ingreso = scanner.nextLine().trim(); //acepta el ingreso de un string con espacios
 
-            if(ingreso.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")){ //valida el ingreso de un string valido, con letras de todo el alfabeto
-                return ingreso;                                 //valida tildes, Ñ - ñ
+            if(ingreso.matches("[a-zA-ZáéíóúÁÉÍÓÚ]+")){ //valida el ingreso de un string valido, con letras de el alfabeto
+                return ingreso;                                 //no valida ingreso de ñ
             } else {
                 System.out.println("Ingrese unicamente letras, no numeros, no caracteres especiales");
             }
@@ -202,6 +214,19 @@ public class ShowConsole {
             }
         } while (true);
 
+    }
+
+    public String validarRuc(Scanner scanner){
+        String ruc;
+        do{
+            System.out.println("--> ");
+            ruc = scanner.nextLine();
+
+            if(scanner.hasNextInt()){
+                System.out.println("Ingrese unicamente numeros, no letras ni caracteres especiales");
+                scanner.nextLine();
+            }
+        }while(true);
     }
 
     public String pedirNumeroSolicitud() {
