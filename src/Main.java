@@ -34,12 +34,15 @@ public class Main {
             ));
 
             //usuarios
-            usuarios.add(new Usuario("Carlos", "Pérez", "0102030405", "carlos@mail.com", "0999999999", new Departamento("Logística", "D001", 8), enums.Rol.JEFE_DE_DEPARTAMENTO));
+            Departamento logistica = new Departamento("Logística", "D001", 8);
 
-            usuarios.add(new Usuario("Andrea", "Sánchez", "0607080910", "andrea@mail.com", "0888888888", new Departamento("Compras", "D002", 5), Rol.SUPERVISOR));
+            usuarios.add(new Usuario("Carlos", "Abad", "0102030405", "carlos@mail.com", "0999999999", logistica, Rol.JEFE_DE_DEPARTAMENTO));
+
+            usuarios.add(new Usuario("Luis", "Torres", "1112131415", "luis@mail.com", "0777777777", logistica, Rol.SUPERVISOR));
 
 
-            //productos
+
+        //productos
             productos.add(new ProductoComestible("C001", "Manzanas", "Frutas frescas", 1.5, UnidadDeMedida.KILOGRAMOS, 10.0, LocalDate.of(2025, 5, 20), LocalDate.of(2025, 4, 10)));
 
             productos.add(new ProductoLimpieza("L001", "Detergente", "Detergente líquido", 3.0, UnidadDeMedida.LITRO,2.5));
@@ -195,7 +198,7 @@ public class Main {
         }
 
         //crea un nuevo número de solicitud
-        String numeroSolicitud = "Solicitud Compra" + String.format("%03d", contadorDeSolicitudes);//convierte a un numero de minimo 3 digitos y pone 0's adelante
+        String numeroSolicitud = "SC" + String.format("%03d", contadorDeSolicitudes);//convierte a un numero de minimo 3 digitos y pone 0's adelante
         contadorDeSolicitudes++; //sube el contador para la proxima solicitud
 
         //crea la nueva solicitud
@@ -280,8 +283,22 @@ public class Main {
         }
 
         System.out.println("Ingrese los datos del jefe evaluador:");
-        Usuario evaluador = showConsole.registrarUsuario();
+        String nombreEvaluador = scanner.nextLine();
+        System.out.println("Ingrese el ID del jefe evaluador:");
+        String idEvaluador = scanner.nextLine();
+        Usuario evaluador = null;
 
+        for (Usuario u : usuarios) {
+            if (u.getNombre().equalsIgnoreCase(nombreEvaluador)) {
+                evaluador = u;
+                break;
+            }
+        }
+
+        if (evaluador == null) {
+            System.out.println("No se encontró el jefe evaluador");
+            return;
+        }
         boolean aprobar = showConsole.pedirDecisionAprobacion(); //se aprueba o no
 
         solicitudEncontrada.aprobarEstado(evaluador, aprobar); //se llama al metodo de SolicitudDeCompra

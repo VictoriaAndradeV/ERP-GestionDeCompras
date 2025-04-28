@@ -20,7 +20,7 @@ public class ProductoLimpieza extends Producto {
 
     @Override
     public String toString() {
-        return super.toString() + " | Volumen: " + volumen + " " + unidad + " | Precio total: $" + calcularPrecio();
+        return super.toString() + " Volumen: " + volumen + " " + unidad + " Precio total: $" + calcularPrecio();
     }
 
 

@@ -308,7 +308,7 @@ public class ShowConsole {
         System.out.println("Ingrese la descripción del producto:");
         String descripcion = scanner.nextLine();
 
-        System.out.println("Ingrese el precio unitario:");
+        System.out.println("Ingrese el por unidad de medida del producto:");
         double precioUnitario = Double.parseDouble(scanner.nextLine());
 
         //opciones de unidad de medida
@@ -326,10 +326,10 @@ public class ShowConsole {
                 System.out.println("Ingrese el peso en kg o gramos:");
                 double peso = Double.parseDouble(scanner.nextLine());
 
-                System.out.println("Ingrese la fecha de caducidad (AÑO-MES-DIA):");
+                System.out.println("Ingrese la fecha de caducidad AÑO-MES-DIA (ej: 2025-12-03): ");
                 LocalDate fechaCaducidad = LocalDate.parse(scanner.nextLine());
 
-                System.out.println("Ingrese la fecha de elaboración (AÑO-MES-DIA):");
+                System.out.println("Ingrese la fecha de elaboración AÑO-MES-DIA (ej: 2025-12-03): ");
                 LocalDate fechaElaboracion = LocalDate.parse(scanner.nextLine());
 
                 nuevoProducto= new ProductoComestible(id, nombre, descripcion, precioUnitario, unidad, peso, fechaCaducidad, fechaElaboracion);
@@ -346,9 +346,7 @@ public class ShowConsole {
 
                 nuevoProducto = new ProductoTecnologico(id, nombre, descripcion, precioUnitario, unidad, garantiaMeses);
                 break;
-            case 4:
-                System.out.println("Opción invalida.");
-                return;
+
         }
 
         //guarda en la lista

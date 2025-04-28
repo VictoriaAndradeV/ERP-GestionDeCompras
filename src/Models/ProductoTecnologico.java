@@ -24,6 +24,6 @@ public class ProductoTecnologico extends Producto {
 
     @Override
     public String toString() {
-        return super.toString() + "Garantia en meses: " + garantiaEnMeses ;
+        return super.toString() + "Garantia en meses: " + garantiaEnMeses  +"Precio total: $" + calcularPrecio();
     }
 }

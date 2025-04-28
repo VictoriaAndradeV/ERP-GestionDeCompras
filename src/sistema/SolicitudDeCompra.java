@@ -92,13 +92,12 @@ public class SolicitudDeCompra {
 
     @Override
     public String toString() {
-        return "SolicitudDeCompra{" +
-                "Usuario = " + usuario +
-                ", Estado = " + estado +
-                ", id = '" + id + '\'' +
-                ", numeroSolicitud = '" + numeroSolicitud + '\'' +
-                ", detalleSolicitud =" + detalleSolicitud +
-                ", fechaSolicitud= " + fechaSolicitud +
-                '}';
+        return "SolicitudDeCompra: " +
+                "Usuario: " + usuario +
+                ", Estado: " + estado +
+                ", id: " + id + '\'' +
+                ", numeroSolicitud: " + numeroSolicitud + '\'' +
+                ", detalleSolicitud: " + detalleSolicitud +
+                ", fechaSolicitud: " + fechaSolicitud;
     }
 }
