@@ -44,8 +44,7 @@ public class Main {
 
             productos.add(new ProductoLimpieza("L001", "Detergente", "Detergente líquido", 3.0, UnidadDeMedida.LITRO,2.5));
 
-            productos.add(new ProductoTecnologico("T001", "Laptop", "Laptop gama media", 600.0, UnidadDeMedida.MES,
-                    24));
+            productos.add(new ProductoTecnologico("T001", "Laptop", "Laptop gama media", 600.0, UnidadDeMedida.MES, 24));
 
 
 

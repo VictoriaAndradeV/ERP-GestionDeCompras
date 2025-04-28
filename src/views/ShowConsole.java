@@ -344,10 +344,10 @@ public class ShowConsole {
                 System.out.println("Ingrese el peso en kg o gramos:");
                 double peso = Double.parseDouble(scanner.nextLine());
 
-                System.out.println("Ingrese la fecha de caducidad (AÑO-MES-DIA):");
+                System.out.println("Ingrese la fecha de caducidad en formato AÑO-MES-DIA (ej:020-12-03): ");
                 LocalDate fechaCaducidad = LocalDate.parse(scanner.nextLine());
 
-                System.out.println("Ingrese la fecha de elaboración (AÑO-MES-DIA):");
+                System.out.println("Ingrese la fecha de elaboración en formato AÑO-MES-DIA (ej: 2020-12-03): ");
                 LocalDate fechaElaboracion = LocalDate.parse(scanner.nextLine());
 
                 nuevoProducto= new ProductoComestible(id, nombre, descripcion, precioUnitario, unidad, peso, fechaCaducidad, fechaElaboracion);

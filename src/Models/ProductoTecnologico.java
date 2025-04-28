@@ -6,13 +6,12 @@ public class ProductoTecnologico extends Producto {
     private int garantiaEnMeses;
 
     public ProductoTecnologico(String id, String nombre, String descripcion, double precioUnitario, UnidadDeMedida unidad, int garantiaEnMeses) {
+        super(id, nombre, descripcion, precioUnitario, unidad);
         this.garantiaEnMeses = garantiaEnMeses;
 
     }
 
-    public ProductoTecnologico(String id, String nombre, String descripcion, double precioUnitario, UnidadDeMedida unidad) {
-        super(id, nombre, descripcion, precioUnitario, unidad);
-    }
+
 
     public int getGarantiaEnMeses() {
         return garantiaEnMeses;
@@ -25,6 +24,6 @@ public class ProductoTecnologico extends Producto {
 
     @Override
     public String toString() {
-        return super.toString() + "Garantia en meses: " + garantiaEnMeses + "\n Precio total: $"+calcularPrecio();
+        return super.toString() + "Garantia en meses: " + garantiaEnMeses ;
     }
 }

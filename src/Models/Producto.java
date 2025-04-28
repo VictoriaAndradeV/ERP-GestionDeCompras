@@ -62,12 +62,11 @@ public abstract class Producto {
     //tostring para facilitar la impresion
     @Override
     public String toString() {
-        return "Producto{" +
-                "id='" + id + '\'' +
-                ", nombre = '" + nombre + '\'' +
-                ", descripcion ='" + descripcion + '\'' +
-                ", precioUnitario =" + precioUnitario +
-                ", unidad =" + unidad +
-                '}';
+        return "Producto--> " +
+                "id: '" + id + '\'' +
+                ", nombre:  '" + nombre + '\'' +
+                ", descripcion: " + descripcion + '\'' +
+                ", precioUnitario: " + precioUnitario +
+                ", unidad: " + unidad;
     }
 }
