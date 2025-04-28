@@ -346,7 +346,6 @@ public class ShowConsole {
 
                 nuevoProducto = new ProductoTecnologico(id, nombre, descripcion, precioUnitario, unidad, garantiaMeses);
                 break;
-
         }
 
         //guarda en la lista

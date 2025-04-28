@@ -11,8 +11,6 @@ public class ProductoTecnologico extends Producto {
 
     }
 
-
-
     public int getGarantiaEnMeses() {
         return garantiaEnMeses;
     }

@@ -38,11 +38,10 @@ public class Departamento {
     }
 
 
-
     @Override
     public String toString() {
-        return "nombre: " + nombre + '\'' +
-                ", id: " + id + '\'' +
-                ", numeroEmpleados: " + numeroEmpleados;
+        return "Nombre: " + nombre + '\'' +
+                ", ID: " + id + '\'' +
+                ", NumeroEmpleados: " + numeroEmpleados;
     }
 }

@@ -48,10 +48,10 @@ public class DetalleSolicitud {
     // facilita la impresion
     @Override
     public String toString() {
-        return "DetalleSolicitud-->" +
-                "producto: " + producto +
-                ", cantidad: " + cantidad +
-                ", justificacion: " + justificacion +" | ";
+        return "DetalleSolicitud--> " +
+                "Producto: " + producto +
+                ", Cantidad: " + cantidad +
+                ", Justificacion: " + justificacion +" | ";
     }
 
 
