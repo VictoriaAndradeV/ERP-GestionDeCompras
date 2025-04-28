@@ -40,10 +40,12 @@ public class BusquedaBinaria {
                 alto = central - 1;
             }
         }
-        return -1; //no se encontro el id buscado
+        return 0; //no se encontro el id buscado
     }
 
-
+    /*
+    * Metodo que busca una solicitud por su ID, primero odrdena de forma ascendente y luego busca en la lista
+     */
     public int buscarSolicitudID(List<SolicitudDeCompra> solicitudDeCompras, String id) {
 
         for (int i = 1; i < solicitudDeCompras.size(); i++) {
@@ -67,16 +69,16 @@ public class BusquedaBinaria {
 
             int comparacion = solicitudCentral.getId().compareToIgnoreCase(id);
 
-            if(comparacion == 0){ //si es ==0 significa que las comparaciones entre ambos nombres coinciden
+            if(comparacion == 0){
                 return central;
             }
-            if(comparacion < 0){ //si alfabeticamente se encuentra antes, va a la derecha
+            if(comparacion < 0){
                 bajo = central + 1;
             }else {
                 alto = central - 1;
             }
         }
-        return -1; //no se encontro el id buscado
+        return 0; //no se encontro el id buscado
     }
 
 
@@ -112,7 +114,7 @@ public class BusquedaBinaria {
                 alto = central - 1;
             }
         }
-        return -1; //no se encontro el id buscado
+        return 0; //no se encontro el id buscado
     }
 
 }
