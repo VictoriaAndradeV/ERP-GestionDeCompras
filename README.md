@@ -25,11 +25,11 @@ Se desarrollaron las siguientes funcionalidades:
 
 Se aplicaron conceptos como:
 
-- *Herencia* (diferentes tipos de productos).
-- *Clases abstractas* (modelo general de producto).
-- *Interfaces* (cálculo de precios).
-- *Polimorfismo* (cálculo dinámico del precio).
-- *Enumeraciones* (control de unidades de medida y estados de solicitud).
+- *Herencia*.
+- *Clases abstractas*.
+- *Interfaces*.
+- *Polimorfismo*.
+- *Enumeraciones*.
 
 ---
 
@@ -51,7 +51,7 @@ Para ejecutar el proyecto:
 
 ## 🧑‍💻 Ejemplo de Entrada
 
-plaintext
+
 ===== SISTEMA DE GESTIÓN DE COMPRAS ERP =====
 1. Registrar usuario
 2. Registrar proveedor
