@@ -52,7 +52,10 @@ public class BusquedaBinaria {
             SolicitudDeCompra pasajero = solicitudDeCompras.get(i);
             int j = i - 1;
 
-            while (j >= 0 && solicitudDeCompras.get(j).getId().compareToIgnoreCase(pasajero.getId()) > 0) {
+            while (j >= 0 &&
+                    solicitudDeCompras.get(j).getId() != null &&
+                    pasajero.getId() != null &&
+                    solicitudDeCompras.get(j).getId().compareToIgnoreCase(pasajero.getId()) > 0) {
                 solicitudDeCompras.set(j + 1, solicitudDeCompras.get(j));
                 j--;
             }
@@ -67,14 +70,19 @@ public class BusquedaBinaria {
             int central = (bajo + alto)/2;
             SolicitudDeCompra solicitudCentral = solicitudDeCompras.get(central);
 
-            int comparacion = solicitudCentral.getId().compareToIgnoreCase(id);
+            String idCentral = solicitudCentral.getId();
+            if (idCentral == null) {
+                return 0;
+            }
 
-            if(comparacion == 0){
+            int comparacion = idCentral.compareToIgnoreCase(id);
+
+            if (comparacion == 0) {
                 return central;
             }
-            if(comparacion < 0){
+            if (comparacion < 0) {
                 bajo = central + 1;
-            }else {
+            } else {
                 alto = central - 1;
             }
         }
