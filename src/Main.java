@@ -1,13 +1,17 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import Models.*;
+import sistema.Departamento;
 import sistema.Proveedor;
 import sistema.Usuario;
 import sistema.SolicitudDeCompra;
 import views.ShowConsole;
 import controller.BusquedaBinaria;
 import java.util.GregorianCalendar;
+import enums.Rol;
+import Enums.UnidadDeMedida;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
@@ -20,6 +24,30 @@ public class Main {
     static BusquedaBinaria binaria = new BusquedaBinaria();
 
     public static void main(String[] args) {
+
+
+            //proveedores
+            proveedores.add(new Proveedor("Proveedor Uno", "ApellidoUno", "P001", "proveedor1@mail.com", "1234567890", "RUC001", "Av. 10 de Agosto"
+            ));
+
+            proveedores.add(new Proveedor("Proveedor Dos", "ApellidoDos", "P002", "proveedor2@mail.com", "0987654321", "RUC002", "Av. Solano"
+            ));
+
+            //usuarios
+            usuarios.add(new Usuario("Carlos", "Pérez", "0102030405", "carlos@mail.com", "0999999999", new Departamento("Logística", "D001", 8), enums.Rol.JEFE_DE_DEPARTAMENTO));
+
+            usuarios.add(new Usuario("Andrea", "Sánchez", "0607080910", "andrea@mail.com", "0888888888", new Departamento("Compras", "D002", 5), Rol.SUPERVISOR));
+
+
+            //productos
+            productos.add(new ProductoComestible("C001", "Manzanas", "Frutas frescas", 1.5, UnidadDeMedida.KILOGRAMOS, 10.0, LocalDate.of(2025, 5, 20), LocalDate.of(2025, 4, 10)));
+
+            productos.add(new ProductoLimpieza("L001", "Detergente", "Detergente líquido", 3.0, UnidadDeMedida.LITRO,2.5));
+
+            productos.add(new ProductoTecnologico("T001", "Laptop", "Laptop gama media", 600.0, UnidadDeMedida.MES,
+                    24));
+
+
 
         ShowConsole showConsole = new ShowConsole(productos);
 

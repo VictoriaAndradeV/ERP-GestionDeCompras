@@ -1,25 +1,27 @@
 package views;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import Enums.UnidadDeMedida;
 import Models.ProductoComestible;
 import Models.ProductoLimpieza;
 import Models.ProductoTecnologico;
-import Models.Producto;
 import sistema.*;
 import enums.Rol;
+import Models.Producto;
 
 
 public class ShowConsole {
 
-    private Scanner scanner;
+    private Scanner scanner= new Scanner(System.in);
     private List<Producto> productos;
     public ShowConsole(List<Producto> productos) {
         this.scanner = new Scanner(System.in);
         this.productos = productos;
     }
+
 
     //Menú de opciones, retorna un valor tipo int, al seleccionar una opción
     public int showMenu(){
@@ -34,17 +36,23 @@ public class ShowConsole {
         System.out.println("8. Listar solicitudes de compra");
         System.out.println("9. Buscar proveedor por ID");
         System.out.println("10. Buscar producto por nombre");
-        System.out.println("11. Buscar solicitud por ID");
+        System.out.println("11. Buscar solicitud por id");
         System.out.println("12. Aprobar / Rechazar solicitud de compra");
         System.out.println("13. Calcular total de una solicitud");
         System.out.println("14. Salir");
-        int opcion = validarOpcion(scanner, 1, 14); //metodo que valida la entrada de numeros en el rango 1-14
+        int opcion = validarOpcion(scanner, 1, 14); //metodo que valida la entrada de numeros en el rango 1-5
         return opcion;                                     //valida el ingreso de numeros, no permite ingresar letras o caracteres especiales
     }
 
+    public int seleccioneTipoProducto(){
+        System.out.println("Seleccione el tipo de producto:");
+        System.out.println("1. Producto Comestible");
+        System.out.println("2. Producto de Limpieza");
+        System.out.println("3. Producto Tecnológico");
+        System.out.println("4. Salir");
+        return validarOpcion(scanner, 1, 4);
+    }
 
-    //al ser clase padre, de proovedor y usuario, en registrar contacto se
-    //agregan los atributos que tienen en comun cada clase hija
     public Contacto registrarContacto(){
         System.out.println("--------- Registrar Contacto --------- ");
         System.out.println("Nombre");
@@ -53,8 +61,8 @@ public class ShowConsole {
         String apellido = validarIngresoLetras(scanner);
         System.out.println("ID");
         String id = scanner.nextLine();
-        System.out.println("Email -->");
-        String email = scanner.nextLine();
+        System.out.println("Email");
+        String email = validarEmail(scanner);
         System.out.println("Telefono");
         String telefono = validarIngresoTelefono(scanner);
         return new Contacto(nombre, apellido, id, email, telefono);
@@ -111,13 +119,11 @@ public class ShowConsole {
     public Rol ingresoRol(Scanner scanner){
         System.out.println("Roles disponibles:");
 
-        //imprime los roles ingresados en enums.Rol
-        for (Rol rol : Rol.values()) {
+        for (Rol rol : Rol.values()) { //imprime los roles ingresados en enums.Rol
             System.out.println("- " + rol.name());
         }
 
-        Rol rolAgregado = null;//se guarda el rol que el usuario elija
-
+        Rol rolAgregado = null;
         while (rolAgregado == null) {
             System.out.println("Ingrese el rol: ");
             String ingreso = scanner.nextLine().toUpperCase();
@@ -132,9 +138,11 @@ public class ShowConsole {
                 System.out.println("Rol inválido. Intente nuevamente.");
             }
         }
+
+        System.out.println("SUPERVISOR - JEFE_DE_DEPARTAMENTO");
         return rolAgregado;
     }
-    //Se ingresa el ID del proveedor que se desea buscar
+    //Se ingresa el ID del proveedor que se desea ingresar
     public String iputIDProveedor(){
         System.out.println("Ingrese el ID del proveedor que desea buscar ->");
         String id = scanner.nextLine();
@@ -150,7 +158,7 @@ public class ShowConsole {
     public String iputNombreProducto(){
         System.out.println("Ingrese el nombre del producto que desea buscar -> ");
         String nombre = scanner.nextLine();
-        return nombre.toLowerCase();
+        return nombre;
     }
 
     public int validarOpcion(Scanner scanner, int min, int max){
@@ -181,14 +189,29 @@ public class ShowConsole {
 
         do {
             System.out.println("--> ");
-            ingreso = scanner.nextLine().trim().toLowerCase(); //acepta el ingreso de un string con espacios
+            ingreso = scanner.nextLine().trim(); //acepta el ingreso de un string con espacios
 
-            if(ingreso.matches("[a-zA-ZáéíóúÁÉÍÓÚ\\s]+")){ //valida el ingreso de un string valido, con letras de el alfabeto
+            if(ingreso.matches("[a-zA-ZáéíóúÁÉÍÓÚ]+")){ //valida el ingreso de un string valido, con letras de el alfabeto
                 return ingreso;                                 //no valida ingreso de ñ
             } else {
                 System.out.println("Ingrese unicamente letras, no numeros, no caracteres especiales");
             }
         } while (true);//se cumple infinitamente hasta que se ingrese una cadena de caracteres válida
+    }
+
+    public String validarEmail(Scanner scanner){
+        String email;
+
+        do{
+            System.out.println("-->");
+            email = scanner.nextLine().trim();
+
+            if(email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")){
+                return email;
+            } else {
+                System.out.println("Ingrese un email valido");
+            }
+        } while (true);
     }
 
     public String validarIngresoTelefono(Scanner scanner){
@@ -234,18 +257,17 @@ public class ShowConsole {
 
     }
 
-    public String validarRuc(Scanner scanner) {
+    public String validarRuc(Scanner scanner){
         String ruc;
-        do {
+        do{
             System.out.println("--> ");
-            ruc = scanner.nextLine().trim();
+            ruc = scanner.nextLine();
 
-            if (ruc.matches("[0-9]+")) { // valida que el ruc ingresado sean solo numeros
-                return ruc;
-            } else {
-                System.out.println("Ingrese únicamente números, no letras ni caracteres especiales.");
+            if(scanner.hasNextInt()){
+                System.out.println("Ingrese unicamente numeros, no letras ni caracteres especiales");
+                scanner.nextLine();
             }
-        } while (true);
+        }while(true);
     }
 
     public String pedirNumeroSolicitud() {
@@ -288,15 +310,11 @@ public class ShowConsole {
         return Integer.parseInt(scanner.nextLine());
     }
 
+
 //3
     public void registrarProducto() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Seleccione el tipo de producto:");
-        System.out.println("1. Producto Comestible");
-        System.out.println("2. Producto de Limpieza");
-        System.out.println("3. Producto Tecnológico");
-        System.out.println("4. Salir");
-        int tipo = Integer.parseInt(scanner.nextLine());
+        int opcion = seleccioneTipoProducto();
 
         //datos generales
         System.out.println("Ingrese el ID del producto:");
@@ -321,7 +339,7 @@ public class ShowConsole {
 
         Producto nuevoProducto = null;
 
-        switch(tipo){
+        switch(opcion){
             case 1:
                 System.out.println("Ingrese el peso en kg o gramos:");
                 double peso = Double.parseDouble(scanner.nextLine());
@@ -347,7 +365,6 @@ public class ShowConsole {
                 nuevoProducto = new ProductoTecnologico(id, nombre, descripcion, precioUnitario, unidad, garantiaMeses);
                 break;
             case 4:
-                System.out.println("Opción invalida.");
                 return;
         }
 

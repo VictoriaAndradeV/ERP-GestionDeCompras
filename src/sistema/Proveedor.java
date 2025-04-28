@@ -13,6 +13,9 @@ public class Proveedor extends Contacto {
         productos = new ArrayList<String>();
     }
 
+
+
+
     public Proveedor(String nombre, String apellido, String id, String email, String telefono, String ruc, String direccion) {
         super(nombre, apellido, id, email, telefono);
         this.ruc = ruc;

@@ -1,5 +1,5 @@
 package Enums;
 
 public enum UnidadDeMedida {
-    KILOGRAMOS, LITROS, GRAMOS, LITRO, GALÓN
+    KILOGRAMOS, LITROS, GRAMOS, LITRO, GALÓN, MES
 }
