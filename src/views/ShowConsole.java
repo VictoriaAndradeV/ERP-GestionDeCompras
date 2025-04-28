@@ -1,6 +1,8 @@
 package views;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
 import Enums.UnidadDeMedida;
@@ -352,4 +354,12 @@ public class ShowConsole {
         productos.add(nuevoProducto);
         System.out.println("Producto registrado correctamente.");
     }
+
+    //metodo imprimir bien 11
+    public String formatearFecha(GregorianCalendar fecha) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(fecha.getTime());
+    }
+
+
 }
