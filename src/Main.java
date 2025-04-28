@@ -7,6 +7,7 @@ import sistema.Usuario;
 import sistema.SolicitudDeCompra;
 import views.ShowConsole;
 import controller.BusquedaBinaria;
+import java.util.GregorianCalendar;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
@@ -16,13 +17,11 @@ public class Main {
     static int contadorDeSolicitudes = 1;
     static List<Producto> productos = new ArrayList<>();
     static ShowConsole showConsole = new ShowConsole(productos);
-
-
+    static BusquedaBinaria binaria = new BusquedaBinaria();
 
     public static void main(String[] args) {
 
         ShowConsole showConsole = new ShowConsole(productos);
-        BusquedaBinaria binaria = new BusquedaBinaria();
 
         boolean continuar = true;
 
@@ -80,49 +79,13 @@ public class Main {
                     }
                     break;
                 case 9:
-                    if (proveedores.isEmpty()) {
-                        System.out.println("No existen proveedores registrados");
-                    } else {
-                        String idBuscado = showConsole.iputIDProveedor();
-                        int index = binaria.buscarProveedorID(proveedores, idBuscado);
-
-                        if (index == -1) {
-                            System.out.println("Proveedor encontrado");
-                            System.out.println(proveedores.get(index));
-                        } else {
-                            System.out.println("Proveedor no registrado");
-                        }
-                    }
+                    buscarProveedorID();
                     break;
                 case 10:
-                    if (productos.isEmpty()) {
-                        System.out.println("No existen productos registrados");
-                    } else {
-                        String nombreBuscado = showConsole.iputNombreProducto();
-                        int index = binaria.buscarProveedorID(proveedores, nombreBuscado);
-
-                        if (index == -1) {
-                            System.out.println("Producto encontrado");
-                            System.out.println(productos.get(index));
-                        } else {
-                            System.out.println("Producto no registrado");
-                        }
-                    }
+                    buscarProductoNombre();
                     break;
                 case 11:
-                    if (solicitudes.isEmpty()) {
-                        System.out.println("No existen solicitudes de compra");
-                    } else {
-                        String idBuscado = showConsole.iputIDSolicitud();
-                        int index = binaria.buscarSolicitudID(solicitudes, idBuscado);
-
-                        if (index == -1) {
-                            System.out.println("Proveedor encontrado");
-                            System.out.println(solicitudes.get(index));
-                        } else {
-                            System.out.println("Solicitud no registrada");
-                        }
-                    }
+                    buscarSolicitudID();
                     break;
                 case 12:
                     aprobarRechazarSolicitud();
@@ -137,6 +100,56 @@ public class Main {
             }
         }
     }
+
+
+    public static void buscarProveedorID(){
+        if (proveedores.isEmpty()) {
+            System.out.println("No existen proveedores registrados");
+        } else {
+            String idBuscado = showConsole.iputIDProveedor();
+            int index = binaria.buscarProveedorID(proveedores, idBuscado);
+
+            if (index == 0) {
+                System.out.println("Proveedor encontrado");
+                System.out.println(proveedores.get(index));
+            } else {
+                System.out.println("Proveedor no registrado");
+            }
+        }
+    }
+
+    public static void buscarProductoNombre(){
+        if (productos.isEmpty()) {
+            System.out.println("No existen productos registrados");
+        } else {
+            String nombreBuscado = showConsole.iputNombreProducto();
+            int index = binaria.buscarProductoNombre(productos, nombreBuscado);
+
+            if (index == 0) {
+                System.out.println("Producto encontrado");
+                System.out.println(productos.get(index));
+            } else {
+                System.out.println("Producto no registrado");
+            }
+        }
+    }
+
+    public static void buscarSolicitudID(){
+        if (solicitudes.isEmpty()) {
+            System.out.println("No existen solicitudes de compra");
+        } else {
+            String idBuscado = showConsole.iputIDSolicitud();
+            int index = binaria.buscarSolicitudID(solicitudes, idBuscado);
+
+            if (index == 0) {
+                System.out.println("Solicitud encontrada");
+                System.out.println(solicitudes.get(index));
+            } else {
+                System.out.println("Solicitud no registrada");
+            }
+        }
+    }
+
     //4
     public static void registrarSolicitudCompra() {
         ShowConsole showConsole = new ShowConsole(productos);
@@ -163,7 +176,7 @@ public class Main {
         nuevaSolicitud.setNumeroSolicitud(numeroSolicitud);
         nuevaSolicitud.setUsuario(usuario);
         nuevaSolicitud.setEstado(enums.Estado.SOLICITADA);
-    //--    nuevaSolicitud.setFechaSolicitud(new GregorianCalendar());
+        nuevaSolicitud.setFechaSolicitud(new GregorianCalendar());
 
         //agregar productos
         boolean seguirAgregando = true;
@@ -246,8 +259,5 @@ public class Main {
 
         solicitudEncontrada.aprobarEstado(evaluador, aprobar); //se llama al metodo de SolicitudDeCompra
     }
-
-//3
-
 
 }

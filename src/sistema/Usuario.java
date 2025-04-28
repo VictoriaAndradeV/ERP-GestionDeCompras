@@ -30,9 +30,9 @@ public class Usuario extends Contacto{
 
     @Override
     public String toString() {
-        return super.toString() + "\nUsuario {" +
-                "departamento=" + departamento +
-                ", rol=" + rol +
-                '}';
+        return super.toString() + "\nUsuario -->" +
+                " Departamento = " + departamento +
+                ", ROL = " + rol
+                ;
     }
 }

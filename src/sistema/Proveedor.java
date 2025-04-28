@@ -50,11 +50,10 @@ public class Proveedor extends Contacto {
 
     @Override
     public String toString() {
-        return super.toString() + "\nProveedor{" +
-                "productos=" + productos +
-                ", ruc='" + ruc + '\'' +
-                ", direccion='" + direccion + '\'' +
-                '}';
+        return super.toString() + "\nProveedor -->" +
+                ", ruc = '" + ruc + '\'' +
+                ", Direccion = '" + direccion + '\''
+                ;
     }
 
 }

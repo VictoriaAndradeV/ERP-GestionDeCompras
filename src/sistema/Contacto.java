@@ -58,12 +58,12 @@ public class Contacto {
 
     @Override
     public String toString() {
-        return "Contacto{" +
-                "nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", id='" + id + '\'' +
-                ", email='" + email + '\'' +
-                ", telefono='" + telefono + '\'' +
-                '}';
+        return "Contacto: " +
+                "Nombre ='" + nombre + '\'' +
+                ", Apellido='" + apellido + '\'' +
+                ", ID = '" + id + '\'' +
+                ", Email='" + email + '\'' +
+                ", Telefono='" + telefono + '\''
+                ;
     }
 }
