@@ -13,6 +13,7 @@ import java.util.GregorianCalendar;
 import enums.Rol;
 import Enums.UnidadDeMedida;
 
+
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     static List<Proveedor> proveedores = new ArrayList<>();
@@ -93,13 +94,7 @@ public class Main {
                     }
                     break;
                 case 8:
-                    if (solicitudes.isEmpty()) {
-                        System.out.println("No existe solicitud de compra registrada");
-                    } else {
-                        for (SolicitudDeCompra sc : solicitudes) {
-                            System.out.println(sc);
-                        }
-                    }
+                    listarSolicitudes();
                     break;
                 case 9:
                     buscarProveedorID();
@@ -124,7 +119,16 @@ public class Main {
         }
     }
 
-
+    public static void listarSolicitudes() {
+        if (solicitudes.isEmpty()) {
+            System.out.println("No existen solicitudes registradas.");
+        } else {
+            for (SolicitudDeCompra solicitud : solicitudes) {
+                mostrarSolicitudBien(solicitud);
+                System.out.println("\n");
+            }
+        }
+    }
     public static void buscarProveedorID(){
         if (proveedores.isEmpty()) {
             System.out.println("No existen proveedores registrados");
@@ -164,13 +168,36 @@ public class Main {
             String idBuscado = showConsole.iputIDSolicitud();
             int index = binaria.buscarSolicitudID(solicitudes, idBuscado);
 
-            if (index == 0) {
+            if (index >= 0) {
                 System.out.println("Solicitud encontrada");
-                System.out.println(solicitudes.get(index));
+                SolicitudDeCompra solicitudEncontrada = solicitudes.get(index);
+                mostrarSolicitudBien(solicitudEncontrada);
             } else {
                 System.out.println("Solicitud no registrada");
             }
         }
+    }
+    public static void mostrarSolicitudBien(SolicitudDeCompra solicitud) {
+        ShowConsole showConsole = new ShowConsole(productos);
+
+        System.out.println("\n======= Detalles de la Solicitud =======");
+        System.out.println("Número de Solicitud: " + solicitud.getNumeroSolicitud());
+        System.out.println("Estado: " + solicitud.getEstado());
+        System.out.println("Fecha de Solicitud: " + showConsole.formatearFecha(solicitud.getFechaSolicitud()));
+
+        System.out.println("\tSolicitante:");
+        System.out.println("Nombre: " + solicitud.getUsuario().getNombre() + " " + solicitud.getUsuario().getApellido());
+        System.out.println("Departamento: " + solicitud.getUsuario().getDepartamento().getNombre());
+        System.out.println("Rol: " + solicitud.getUsuario().getRol());
+
+        System.out.println("\tProductos solicitados:");
+        for (DetalleSolicitud detalle : solicitud.getDetalleSolicitud()) {
+            System.out.println("- Producto: " + detalle.getProducto().getNombre());
+            System.out.println("  Cantidad: " + detalle.getCantidad());
+            System.out.println("  Subtotal: $" + detalle.calcularTotal());
+        }
+
+        System.out.println("\nTotal de la solicitud: $" + solicitud.calcularPrecio());
     }
 
     //4
@@ -296,5 +323,6 @@ public class Main {
 
         solicitudEncontrada.aprobarEstado(evaluador, aprobar); //se llama al metodo de SolicitudDeCompra
     }
+
 
 }

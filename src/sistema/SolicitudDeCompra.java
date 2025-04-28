@@ -2,8 +2,6 @@ package sistema;
 import Models.DetalleSolicitud;
 import enums.Estado;
 import enums.Rol;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -16,7 +14,6 @@ public class SolicitudDeCompra {
     private String numeroSolicitud;
     private List<DetalleSolicitud> detalleSolicitud;
     private GregorianCalendar fechaSolicitud;
-    private LocalDate fechaSolicitudEntrada;
 
     public SolicitudDeCompra() {
         detalleSolicitud = new ArrayList<>();
@@ -88,13 +85,20 @@ public class SolicitudDeCompra {
             System.out.println("No tiene permiso para aprobar el solicitud");
         }
     }
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public List<DetalleSolicitud> getDetalleSolicitud() {
+        return detalleSolicitud;
+    }
 
 
     @Override
     public String toString() {
         return "SolicitudDeCompra: " +
-                "Usuario: " + usuario +
-                ", Estado: " + estado +
+                 usuario +
+                "\nEstado: " + estado +
                 ", id: " + id + '\'' +
                 ", numeroSolicitud: " + numeroSolicitud + '\'' +
                 ", detalleSolicitud: " + detalleSolicitud +
