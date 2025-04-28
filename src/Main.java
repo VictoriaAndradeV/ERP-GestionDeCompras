@@ -25,31 +25,24 @@ public class Main {
 
     public static void main(String[] args) {
 
+        //proveedores
+        proveedores.add(new Proveedor("Proveedor Uno", "ApellidoUno", "P001", "proveedor1@mail.com", "1234567890", "RUC001", "Av. 10 de Agosto"));
 
-            //proveedores
-            proveedores.add(new Proveedor("Proveedor Uno", "ApellidoUno", "P001", "proveedor1@mail.com", "1234567890", "RUC001", "Av. 10 de Agosto"
-            ));
+        proveedores.add(new Proveedor("Proveedor Dos", "ApellidoDos", "P002", "proveedor2@mail.com", "0987654321", "RUC002", "Av. Solano"));
 
-            proveedores.add(new Proveedor("Proveedor Dos", "ApellidoDos", "P002", "proveedor2@mail.com", "0987654321", "RUC002", "Av. Solano"
-            ));
+        //usuarios
+        Departamento logistica = new Departamento("Logística", "D001", 8);
 
-            //usuarios
-            Departamento logistica = new Departamento("Logística", "D001", 8);
+        usuarios.add(new Usuario("Carlos", "Abad", "0102030405", "carlos@mail.com", "0999999999", logistica, Rol.JEFE_DE_DEPARTAMENTO));
 
-            usuarios.add(new Usuario("Carlos", "Abad", "0102030405", "carlos@mail.com", "0999999999", logistica, Rol.JEFE_DE_DEPARTAMENTO));
-
-            usuarios.add(new Usuario("Luis", "Torres", "1112131415", "luis@mail.com", "0777777777", logistica, Rol.SUPERVISOR));
-
-
+        usuarios.add(new Usuario("Luis", "Torres", "1112131415", "luis@mail.com", "0777777777", logistica, Rol.SUPERVISOR));
 
         //productos
-            productos.add(new ProductoComestible("C001", "Manzanas", "Frutas frescas", 1.5, UnidadDeMedida.KILOGRAMOS, 10.0, LocalDate.of(2025, 5, 20), LocalDate.of(2025, 4, 10)));
+        productos.add(new ProductoComestible("C001", "Manzanas", "Frutas frescas", 1.5, UnidadDeMedida.KILOGRAMOS, 10.0, LocalDate.of(2025, 5, 20), LocalDate.of(2025, 4, 10)));
 
-            productos.add(new ProductoLimpieza("L001", "Detergente", "Detergente líquido", 3.0, UnidadDeMedida.LITRO,2.5));
+        productos.add(new ProductoLimpieza("L001", "Detergente", "Detergente líquido", 3.0, UnidadDeMedida.LITRO,2.5));
 
-            productos.add(new ProductoTecnologico("T001", "Laptop", "Laptop gama media", 600.0, UnidadDeMedida.MES, 24));
-
-
+        productos.add(new ProductoTecnologico("T001", "Laptop", "Laptop gama media", 600.0, UnidadDeMedida.MES, 24));
 
         ShowConsole showConsole = new ShowConsole(productos);
 
