@@ -38,15 +38,13 @@ Se aplicaron conceptos como:
 Para ejecutar el proyecto:
 
 1. Compila los archivos Java:
-    bash
-    javac Main.java
-    
-
+   ```bash
+    javac App.java
+    ```
 2. Ejecuta la aplicación:
-    bash
-    java Main
-    
-
+   ```bash
+    javac App.java
+    ```
 ---
 
 ## 🧑‍💻 Ejemplo de Entrada
