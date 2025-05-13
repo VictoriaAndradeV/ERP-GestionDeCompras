@@ -20,6 +20,9 @@ public class SolicitudDeCompra implements Calculable {
         this.detalleSolicitud = detalleSolicitud;
 
     }
+    public SolicitudDeCompra(){
+        this.detalleSolicitud=new ArrayList<>();
+    }
     public SolicitudDeCompra(GregorianCalendar fechaSolicitud, Estado estado, String id) {
         this.fechaSolicitud=fechaSolicitud;
         this.estado = estado;
