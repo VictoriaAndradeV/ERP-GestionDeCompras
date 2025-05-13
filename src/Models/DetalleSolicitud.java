@@ -1,6 +1,6 @@
 package Models;
 
-public class DetalleSolicitud {
+public class DetalleSolicitud implements Calculable{
     private Producto producto;
     private int cantidad;
     private String justificacion;
@@ -41,10 +41,10 @@ public class DetalleSolicitud {
         this.justificacion = justificacion;
     }
 
-    public double calcularTotal(){
+    @Override
+    public double calcularTotal() {
         return producto.calcularPrecio() * cantidad;
     }
-
     // facilita la impresion
     @Override
     public String toString() {

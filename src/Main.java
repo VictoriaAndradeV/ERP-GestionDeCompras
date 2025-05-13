@@ -197,7 +197,7 @@ public class Main {
             System.out.println("  Subtotal: $" + detalle.calcularTotal());
         }
 
-        System.out.println("\nTotal de la solicitud: $" + solicitud.calcularPrecio());
+        System.out.println("\nTotal de la solicitud: $" + solicitud.calcularTotal());
     }
 
     //4
@@ -281,7 +281,7 @@ public class Main {
             return;
         }
 
-        double total = solicitudEncontrada.calcularPrecio();
+        double total = solicitudEncontrada.calcularTotal();
         showConsole.mostrarSolicitud(total);
     }
 

@@ -1,4 +1,5 @@
 package sistema;
+import Models.Calculable;
 import Models.DetalleSolicitud;
 import enums.Estado;
 import enums.Rol;
@@ -7,7 +8,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 
-public class SolicitudDeCompra {
+public class SolicitudDeCompra implements Calculable {
     Usuario usuario;
     Estado estado;
     private String id;
@@ -15,10 +16,10 @@ public class SolicitudDeCompra {
     private List<DetalleSolicitud> detalleSolicitud;
     private GregorianCalendar fechaSolicitud;
 
-    public SolicitudDeCompra() {
-        detalleSolicitud = new ArrayList<>();
-    }
+    public SolicitudDeCompra(List<DetalleSolicitud> detalleSolicitud) {
+        this.detalleSolicitud = detalleSolicitud;
 
+    }
     public SolicitudDeCompra(GregorianCalendar fechaSolicitud, Estado estado, String id) {
         this.fechaSolicitud=fechaSolicitud;
         this.estado = estado;
@@ -63,12 +64,14 @@ public class SolicitudDeCompra {
         this.detalleSolicitud.add(detalle);
     }
 
-    public double calcularPrecio() {
-        double total= 0.0;
+    @Override
+    public double calcularTotal() {
+        double total = 0.0;
         for (DetalleSolicitud dS : detalleSolicitud) {
-            total += dS.calcularTotal();
+            total += dS.calcularTotal(); // Usa la interfaz aquí
         }
         return total;
+
     }
 
     public void aprobarEstado(Usuario evaluador, boolean aprobar) {
