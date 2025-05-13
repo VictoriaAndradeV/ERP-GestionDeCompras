@@ -8,9 +8,7 @@ public abstract class Producto {
     protected double precioUnitario;
     protected UnidadDeMedida unidad;
 
-
     //constructor
-
     public Producto() {}
     public Producto(String id, String nombre, String descripcion,double precioUnitario, UnidadDeMedida unidad) {
         this.id = id;
@@ -19,6 +17,7 @@ public abstract class Producto {
         this.precioUnitario = precioUnitario;
         this.unidad = unidad;
     }
+
     //getters y setters
     public String getId() {
         return id;

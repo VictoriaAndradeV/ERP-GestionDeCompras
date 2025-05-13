@@ -1,23 +1,27 @@
 package sistema;
+
 import enums.Rol;
+import java.util.GregorianCalendar;
 
 public class Usuario extends Contacto{
-    Departamento departamento;
+    private SolicitudDeCompra solicitud;
+    private Departamento departamento;
     private Rol rol;
 
 
     public Usuario(String nombre, String apellido, String id, String email, String telefono, Departamento departamento, Rol rol) {
-        super(nombre, apellido, id, email, telefono);
+        super(nombre, apellido, id, email, telefono); //atributos de contacto
         this.departamento = departamento;
         this.rol = rol;
+        this.solicitud = null; //inicialmente sin solicitud
     }
 
     public Departamento getDepartamento() {
         return departamento;
     }
 
-    public void addDepartamento(String nombre, String id, int numeroEmpleados) {
-        this.departamento = new Departamento(nombre, id, numeroEmpleados);
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
     }
 
     public Rol getRol() {
@@ -28,11 +32,25 @@ public class Usuario extends Contacto{
         this.rol = rol;
     }
 
+    public SolicitudDeCompra getSolicitud() {
+        return solicitud;
+    }
+
+    public void addSolicitud(GregorianCalendar fecha, enums.Estado estado, String numeroSolicitud) {
+        if (this.solicitud == null) {
+            this.solicitud = new SolicitudDeCompra(this, fecha, estado, numeroSolicitud);
+        } else {
+            System.out.println("El usuario ya tiene una solicitud existente.");
+        }
+    }
+
+
     @Override
     public String toString() {
-        return super.toString() + "\nUsuario -->" +
-                "\n Departamento = " + departamento +
-                ", ROL = " + rol
-                ;
+        return "Usuario ->" +
+                " solicitud = " + solicitud +
+                ", departamento = " + departamento +
+                ", rol = " + rol +
+                '}';
     }
 }

@@ -1,12 +1,10 @@
 package Models;
 
-public class DetalleSolicitud {
+public class DetalleSolicitud implements Calculable{
     private Producto producto;
     private int cantidad;
     private String justificacion;
-    //constructor vacio
-    public DetalleSolicitud() {
-    }
+
     //cosntructor con atributos
     public DetalleSolicitud(Producto producto, int cantidad, String justificacion) {
         this.producto = producto;
@@ -18,34 +16,29 @@ public class DetalleSolicitud {
 
         return producto;
     }
-
     public void setProducto(Producto producto) {
 
         this.producto = producto;
     }
-
     public int getCantidad() {
 
         return cantidad;
     }
-
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-
     public String getJustificacion() {
         return justificacion;
     }
-
     public void setJustificacion(String justificacion) {
         this.justificacion = justificacion;
     }
 
-    public double calcularTotal(){
+    @Override
+    public double calcularTotal() {
         return producto.calcularPrecio() * cantidad;
     }
 
-    // facilita la impresion
     @Override
     public String toString() {
         return "\nDetalleSolicitud--> " +

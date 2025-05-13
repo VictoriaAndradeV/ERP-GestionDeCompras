@@ -197,44 +197,41 @@ public class Main {
             System.out.println("  Subtotal: $" + detalle.calcularTotal());
         }
 
-        System.out.println("\nTotal de la solicitud: $" + solicitud.calcularPrecio());
+        System.out.println("\nTotal de la solicitud: $" + solicitud.calcularTotal());
     }
 
-    //4
     public static void registrarSolicitudCompra() {
         ShowConsole showConsole = new ShowConsole(productos);
-        String nombreSolicitante= showConsole.pedirNombreSolicitante();
+        String nombreSolicitante = showConsole.pedirNombreSolicitante();
         Usuario usuario = null;
 
-        for(Usuario u : usuarios) {
+        for (Usuario u : usuarios) {
             if (u.getNombre().equalsIgnoreCase(nombreSolicitante)) {
                 usuario = u;
                 break;
             }
         }
+
         if (usuario == null) {
             System.out.println("No existen usuarios registrados");
             return;
         }
 
-        //crea un nuevo número de solicitud
-        String numeroSolicitud = "SC" + String.format("%03d", contadorDeSolicitudes);//convierte a un numero de minimo 3 digitos y pone 0's adelante
-        contadorDeSolicitudes++; //sube el contador para la proxima solicitud
+        // Crear un nuevo número de solicitud
+        String numeroSolicitud = "SC" + String.format("%03d", contadorDeSolicitudes);
+        contadorDeSolicitudes++;
 
-        //crea la nueva solicitud
-        SolicitudDeCompra nuevaSolicitud = new SolicitudDeCompra();
-        nuevaSolicitud.setNumeroSolicitud(numeroSolicitud);
-        nuevaSolicitud.setUsuario(usuario);
-        nuevaSolicitud.setEstado(enums.Estado.SOLICITADA);
-        nuevaSolicitud.setFechaSolicitud(new GregorianCalendar());
+        // Crear nueva solicitud
+        GregorianCalendar fecha = new GregorianCalendar();
+        usuario.addSolicitud(fecha, enums.Estado.SOLICITADA, numeroSolicitud);
+        SolicitudDeCompra nuevaSolicitud = usuario.getSolicitud();
 
-        //agregar productos
+        // Agregar productos
         boolean seguirAgregando = true;
         while (seguirAgregando) {
             System.out.println("Ingrese el nombre del producto que desea agregar:");
             String nombreProducto = scanner.nextLine();
 
-            //busca el producto en la lista
             Producto productoSeleccionado = null;
             for (Producto p : productos) {
                 if (p.getNombre().equalsIgnoreCase(nombreProducto)) {
@@ -246,11 +243,10 @@ public class Main {
             if (productoSeleccionado == null) {
                 System.out.println("No se encontró el producto");
             } else {
-                int cantidad=showConsole.pedirCantidadProducto();
+                int cantidad = showConsole.pedirCantidadProducto();
 
-                //crea un detalle de solicitud y agregarlo
-                DetalleSolicitud detalle = new DetalleSolicitud(productoSeleccionado, cantidad, "Justificación no disponible");
-                nuevaSolicitud.agregarDetalle(detalle);
+                // Llamar al metodo correcto
+                nuevaSolicitud.agregarDetalle(productoSeleccionado, cantidad, "Justificación no disponible");
                 System.out.println("Producto agregado correctamente a la solicitud.");
             }
 
@@ -258,8 +254,7 @@ public class Main {
         }
 
         solicitudes.add(nuevaSolicitud);
-
-        System.out.println("Solicitud registrada con éxito. numero de solicitud: " + numeroSolicitud);
+        System.out.println("Solicitud registrada con éxito. número de solicitud: " + numeroSolicitud);
     }
 
 
@@ -281,7 +276,7 @@ public class Main {
             return;
         }
 
-        double total = solicitudEncontrada.calcularPrecio();
+        double total = solicitudEncontrada.calcularTotal();
         showConsole.mostrarSolicitud(total);
     }
 
@@ -323,6 +318,5 @@ public class Main {
 
         solicitudEncontrada.aprobarEstado(evaluador, aprobar); //se llama al metodo de SolicitudDeCompra
     }
-
 
 }
