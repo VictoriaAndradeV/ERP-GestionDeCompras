@@ -5,11 +5,11 @@ import java.time.LocalDate;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
-import Enums.UnidadDeMedida;
-import Models.ProductoComestible;
-import Models.ProductoLimpieza;
-import Models.ProductoTecnologico;
-import Models.Producto;
+import enums.UnidadDeMedida;
+import models.ProductoComestible;
+import models.ProductoLimpieza;
+import models.ProductoTecnologico;
+import models.Producto;
 import sistema.*;
 import enums.Rol;
 

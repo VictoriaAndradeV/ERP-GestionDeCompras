@@ -1,5 +1,5 @@
-package Models;
-import Enums.UnidadDeMedida;
+package models;
+import enums.UnidadDeMedida;
 
 import java.time.LocalDate;
 

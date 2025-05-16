@@ -1,5 +1,5 @@
-package Models;
-import Enums.UnidadDeMedida;
+package models;
+import enums.UnidadDeMedida;
 
 public class ProductoTecnologico extends Producto {
 

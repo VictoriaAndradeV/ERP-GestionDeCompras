@@ -2,7 +2,7 @@ package sistema;
 import enums.Rol;
 
 public class Usuario extends Contacto{
-    Departamento departamento;
+    private Departamento departamento;
     private Rol rol;
 
 
@@ -16,9 +16,6 @@ public class Usuario extends Contacto{
         return departamento;
     }
 
-    public void addDepartamento(String nombre, String id, int numeroEmpleados) {
-        this.departamento = new Departamento(nombre, id, numeroEmpleados);
-    }
 
     public Rol getRol() {
         return rol;

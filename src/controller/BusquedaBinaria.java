@@ -1,6 +1,6 @@
 package controller;
 
-import Models.Producto;
+import models.Producto;
 import sistema.Proveedor;
 import sistema.SolicitudDeCompra;
 
@@ -10,16 +10,8 @@ public class BusquedaBinaria {
 
     public int buscarProveedorID(List<Proveedor> proveedores, String id) {
 
-        for (int i = 1; i < proveedores.size(); i++) {
-            Proveedor proveedorActual = proveedores.get(i);
-            int j = i - 1;
 
-            while (j >= 0 && proveedores.get(j).getId().compareToIgnoreCase(proveedorActual.getId()) > 0) {
-                proveedores.set(j + 1, proveedores.get(j));
-                j--;
-            }
-            proveedores.set(j + 1, proveedorActual);
-        }
+        proveedores.sort((a, b) -> a.getId().compareToIgnoreCase(b.getId()));
 
         int bajo = 0;
         int alto = (proveedores.size() - 1);
@@ -62,6 +54,8 @@ public class BusquedaBinaria {
             solicitudDeCompras.set(j + 1, pasajero);
         }
 
+
+
         int bajo = 0;
         int alto = (solicitudDeCompras.size() - 1);
 
@@ -72,7 +66,7 @@ public class BusquedaBinaria {
 
             String idCentral = solicitudCentral.getId();
             if (idCentral == null) {
-                return 0;
+                return -1;
             }
 
             int comparacion = idCentral.compareToIgnoreCase(id);
@@ -111,7 +105,7 @@ public class BusquedaBinaria {
             int central = (bajo + alto)/2;
             Producto productoCentral = productos.get(central);
 
-            int comparacion = productoCentral.getId().compareToIgnoreCase(nombreProducto);
+            int comparacion = productoCentral.getNombre().compareToIgnoreCase(nombreProducto);
 
             if(comparacion == 0){ //si es ==0 significa que las comparaciones entre ambos nombres coinciden
                 return central;
@@ -122,7 +116,7 @@ public class BusquedaBinaria {
                 alto = central - 1;
             }
         }
-        return 0; //no se encontro el id buscado
+        return -1; //no se encontro el id buscado
     }
 
 }

@@ -1,6 +1,6 @@
 package sistema;
-import Models.Calculable;
-import Models.DetalleSolicitud;
+import models.Calculable;
+import models.DetalleSolicitud;
 import enums.Estado;
 import enums.Rol;
 import java.util.ArrayList;
