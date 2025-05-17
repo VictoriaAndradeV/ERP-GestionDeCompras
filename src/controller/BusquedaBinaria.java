@@ -11,10 +11,18 @@ public class BusquedaBinaria {
     public int buscarProveedorID(List<Proveedor> proveedores, String id) {
 
 
-        proveedores.sort((a, b) -> a.getId().compareToIgnoreCase(b.getId()));
+        for (int i = 1; i < proveedores.size(); i++) {
+            Proveedor proveedorActual = proveedores.get(i);
+            int j = i - 1;
 
+            while (j >= 0 && proveedores.get(j).getId().compareToIgnoreCase(proveedorActual.getId()) > 0) {
+                proveedores.set(j + 1, proveedores.get(j));
+                j--;
+            }
+            proveedores.set(j + 1, proveedorActual);
+        }
         int bajo = 0;
-        int alto = (proveedores.size() - 1);
+        int alto = proveedores.size() - 1;
 
         while(bajo <= alto){
 
@@ -32,7 +40,7 @@ public class BusquedaBinaria {
                 alto = central - 1;
             }
         }
-        return 0; //no se encontro el id buscado
+        return -1; //no se encontro el id buscado
     }
 
     /*
