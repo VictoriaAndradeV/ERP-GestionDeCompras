@@ -1,4 +1,4 @@
-package Models;
+package models;
 
 public class DetalleSolicitud implements Calculable{
     private Producto producto;

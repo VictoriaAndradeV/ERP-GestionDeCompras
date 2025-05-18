@@ -1,4 +1,4 @@
-package Models;
+package models;
 import Enums.UnidadDeMedida;
 
 import java.time.LocalDate;

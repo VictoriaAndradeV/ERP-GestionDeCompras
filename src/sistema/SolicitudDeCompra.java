@@ -1,9 +1,9 @@
 package sistema;
-import Models.Calculable;
-import Models.DetalleSolicitud;
-import Models.Producto;
-import enums.Estado;
-import enums.Rol;
+import models.Calculable;
+import models.DetalleSolicitud;
+import models.Producto;
+import Enums.Estado;
+import Enums.Rol;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
