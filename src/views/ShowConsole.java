@@ -13,7 +13,6 @@ import Models.Producto;
 import sistema.*;
 import enums.Rol;
 
-
 public class ShowConsole {
 
     private Scanner scanner;
@@ -98,6 +97,7 @@ public class ShowConsole {
             direccion
         );
     }
+
 
     public Departamento ingresoDepartamento(Scanner scanner){
         System.out.println("--------- Ingresar Departamento --------- ");
@@ -290,7 +290,82 @@ public class ShowConsole {
         return Integer.parseInt(scanner.nextLine());
     }
 
-//3
+    //REGISTRAR PRODUCTO
+    public void registrarProducto() {
+        System.out.println("Seleccione el tipo de producto:");
+        System.out.println("1. Producto Comestible");
+        System.out.println("2. Producto de Limpieza");
+        System.out.println("3. Producto Tecnológico");
+
+        int tipo = validarOpcion(scanner, 1, 3);
+
+        // Datos generales
+        System.out.println("Ingrese el ID del producto:");
+        String id = scanner.nextLine();
+
+        System.out.println("Ingrese el nombre del producto:");
+        String nombre = validarIngresoLetras(scanner);
+
+        System.out.println("Ingrese la descripción del producto:");
+        String descripcion = scanner.nextLine();
+
+        System.out.println("Ingrese el precio unitario del producto:");
+        double precioUnitario = Double.parseDouble(scanner.nextLine());
+
+        // Selección de unidad de medida
+        System.out.println("Seleccione la unidad de medida:");
+        for (UnidadDeMedida unidad : UnidadDeMedida.values()) {
+            System.out.println("- " + unidad);
+        }
+
+        UnidadDeMedida unidad = null;
+        while (unidad == null) {
+            System.out.println("Ingrese la unidad de medida:");
+            String unidadInput = scanner.nextLine().toUpperCase();
+            try {
+                unidad = UnidadDeMedida.valueOf(unidadInput);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Unidad inválida. Intente nuevamente.");
+            }
+        }
+
+        Producto nuevoProducto = null;
+
+        switch (tipo) {
+            case 1:
+                System.out.println("Ingrese el peso en kg o gramos:");
+                double peso = Double.parseDouble(scanner.nextLine());
+
+                System.out.println("Ingrese la fecha de caducidad (AAAA-MM-DD):");
+                LocalDate fechaCaducidad = LocalDate.parse(scanner.nextLine());
+
+                System.out.println("Ingrese la fecha de elaboración (AAAA-MM-DD):");
+                LocalDate fechaElaboracion = LocalDate.parse(scanner.nextLine());
+
+                nuevoProducto = new ProductoComestible(id, nombre, descripcion, precioUnitario, unidad, peso, fechaCaducidad, fechaElaboracion);
+                break;
+
+            case 2:
+                System.out.println("Ingrese el volumen en litros:");
+                double volumen = Double.parseDouble(scanner.nextLine());
+
+                nuevoProducto = new ProductoLimpieza(id, nombre, descripcion, precioUnitario, unidad, volumen);
+                break;
+
+            case 3:
+                System.out.println("Ingrese la garantía en meses:");
+                int garantiaMeses = Integer.parseInt(scanner.nextLine());
+
+                nuevoProducto = new ProductoTecnologico(id, nombre, descripcion, precioUnitario, unidad, garantiaMeses);
+                break;
+        }
+
+        productos.add(nuevoProducto);
+        System.out.println("Producto registrado correctamente.");
+    }
+
+
+/*
     public void registrarProducto() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Seleccione el tipo de producto:");
@@ -353,13 +428,12 @@ public class ShowConsole {
         //guarda en la lista
         productos.add(nuevoProducto);
         System.out.println("Producto registrado correctamente.");
-    }
+    }*/
 
     //metodo imprimir bien 11
     public String formatearFecha(GregorianCalendar fecha) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(fecha.getTime());
     }
-
 
 }
