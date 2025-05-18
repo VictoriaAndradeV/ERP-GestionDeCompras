@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import Models.*;
+import models.*;
 import sistema.Departamento;
 import sistema.Proveedor;
 import sistema.Usuario;
@@ -10,7 +10,7 @@ import sistema.SolicitudDeCompra;
 import views.ShowConsole;
 import controller.BusquedaBinaria;
 import java.util.GregorianCalendar;
-import enums.Rol;
+import Enums.Rol;
 import Enums.UnidadDeMedida;
 
 
@@ -223,7 +223,7 @@ public class Main {
 
         // Crear nueva solicitud
         GregorianCalendar fecha = new GregorianCalendar();
-        usuario.addSolicitud(fecha, enums.Estado.SOLICITADA, numeroSolicitud);
+        usuario.addSolicitud(fecha, Enums.Estado.SOLICITADA, numeroSolicitud);
         SolicitudDeCompra nuevaSolicitud = usuario.getSolicitud();
 
         // Agregar productos

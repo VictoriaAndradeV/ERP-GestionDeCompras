@@ -1,6 +1,6 @@
 package sistema;
 
-import Models.Producto;
+import models.Producto;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package controller;
 
-import Models.Producto;
+import models.Producto;
 import sistema.Proveedor;
 import sistema.SolicitudDeCompra;
 

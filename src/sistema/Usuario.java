@@ -1,6 +1,6 @@
 package sistema;
 
-import enums.Rol;
+import Enums.Rol;
 import java.util.GregorianCalendar;
 
 public class Usuario extends Contacto{
@@ -36,7 +36,7 @@ public class Usuario extends Contacto{
         return solicitud;
     }
 
-    public void addSolicitud(GregorianCalendar fecha, enums.Estado estado, String numeroSolicitud) {
+    public void addSolicitud(GregorianCalendar fecha, Enums.Estado estado, String numeroSolicitud) {
         if (this.solicitud == null) {
             this.solicitud = new SolicitudDeCompra(this, fecha, estado, numeroSolicitud);
         } else {
