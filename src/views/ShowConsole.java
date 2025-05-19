@@ -5,13 +5,13 @@ import java.time.LocalDate;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
-import Enums.UnidadDeMedida;
+import enums.UnidadDeMedida;
 import models.ProductoComestible;
 import models.ProductoLimpieza;
 import models.ProductoTecnologico;
 import models.Producto;
 import sistema.*;
-import Enums.Rol;
+import enums.Rol;
 
 public class ShowConsole {
 

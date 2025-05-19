@@ -1,5 +1,5 @@
 package models;
-import Enums.UnidadDeMedida;
+import enums.UnidadDeMedida;
 
 public abstract class Producto {
     protected String id;
