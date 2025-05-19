@@ -1,5 +1,5 @@
 package models;
-import Enums.UnidadDeMedida;
+import enums.UnidadDeMedida;
 
 public class ProductoLimpieza extends Producto {
     private double volumen; // en litros
