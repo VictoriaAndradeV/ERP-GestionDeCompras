@@ -45,12 +45,12 @@ public class Usuario extends Contacto{
     }
 
 
+
     @Override
     public String toString() {
         return "Usuario ->" +
                 " solicitud = " + solicitud +
                 ", departamento = " + departamento +
-                ", rol = " + rol +
-                '}';
+                ", rol = " + rol ;
     }
 }
