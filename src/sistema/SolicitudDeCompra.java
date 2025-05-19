@@ -1,37 +1,42 @@
 package sistema;
 import models.Calculable;
 import models.DetalleSolicitud;
+import models.Producto;
 import enums.Estado;
 import enums.Rol;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-
 public class SolicitudDeCompra implements Calculable {
-    Usuario usuario;
-    Estado estado;
+    private Usuario usuario;
+    private Estado estado;
     private String id;
     private String numeroSolicitud;
     private List<DetalleSolicitud> detalleSolicitud;
     private GregorianCalendar fechaSolicitud;
+    private Producto producto;
 
-    public SolicitudDeCompra(List<DetalleSolicitud> detalleSolicitud) {
-        this.detalleSolicitud = detalleSolicitud;
+    public SolicitudDeCompra() {
+        this.detalleSolicitud = new ArrayList<>();
+    }
 
-    }
-    public SolicitudDeCompra(){
-        this.detalleSolicitud=new ArrayList<>();
-    }
-    public SolicitudDeCompra(GregorianCalendar fechaSolicitud, Estado estado, String id) {
-        this.fechaSolicitud=fechaSolicitud;
+    public SolicitudDeCompra(Usuario usuario, GregorianCalendar fechaSolicitud, Estado estado, String numeroSolicitud) {
+        this.usuario = usuario;
+        this.fechaSolicitud = fechaSolicitud;
         this.estado = estado;
-        this.id = id;
-        detalleSolicitud = new ArrayList<>();
+        this.numeroSolicitud = numeroSolicitud;
+        this.detalleSolicitud = new ArrayList<>();
     }
+
     public void setNumeroSolicitud(String numeroSolicitud) {
         this.numeroSolicitud = numeroSolicitud;
     }
+
+    public String getNumeroSolicitud() {
+        return numeroSolicitud;
+    }
+
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
@@ -42,30 +47,32 @@ public class SolicitudDeCompra implements Calculable {
     public GregorianCalendar getFechaSolicitud() {
         return fechaSolicitud;
     }
-    public String getNumeroSolicitud() {
-        return numeroSolicitud;
-    }
     public void setFechaSolicitud(GregorianCalendar fechaSolicitud) {
         this.fechaSolicitud = fechaSolicitud;
     }
-
     public String getId() {
         return id;
     }
     public void setId(String id) {
         this.id = id;
     }
-
-    public void addUsuario(String nombre, String apellido, String id, String email, String telefono, Departamento departamento, Rol rol) {
-        this.usuario = new Usuario(nombre, apellido, id, email, telefono, departamento, rol);
-    }
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
-    public void agregarDetalle(DetalleSolicitud detalle) {
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public List<DetalleSolicitud> getDetalleSolicitud() {
+        return detalleSolicitud;
+    }
+
+    public void agregarDetalle(Producto producto, int cantidad, String justificacion) {
+        DetalleSolicitud detalle = new DetalleSolicitud(producto, cantidad, justificacion);
         this.detalleSolicitud.add(detalle);
     }
+
 
     @Override
     public double calcularTotal() {
@@ -91,19 +98,12 @@ public class SolicitudDeCompra implements Calculable {
             System.out.println("No tiene permiso para aprobar el solicitud");
         }
     }
-    public Estado getEstado() {
-        return estado;
-    }
-
-    public List<DetalleSolicitud> getDetalleSolicitud() {
-        return detalleSolicitud;
-    }
 
 
     @Override
     public String toString() {
         return "SolicitudDeCompra: " +
-                 usuario +
+                usuario +
                 "\nEstado: " + estado +
                 ", id: " + id + '\'' +
                 ", numeroSolicitud: " + numeroSolicitud + '\'' +

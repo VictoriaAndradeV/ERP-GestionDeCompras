@@ -2,8 +2,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import enums.Estado;
 import models.*;
 import sistema.Departamento;
 import sistema.Proveedor;
@@ -14,7 +12,6 @@ import controller.BusquedaBinaria;
 import java.util.GregorianCalendar;
 import enums.Rol;
 import enums.UnidadDeMedida;
-
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
@@ -27,8 +24,6 @@ public class Main {
     static BusquedaBinaria binaria = new BusquedaBinaria();
 
     public static void main(String[] args) {
-
-
 
         //proveedores
         proveedores.add(new Proveedor("Proveedor Uno", "ApellidoUno", "P001", "proveedor1@mail.com", "1234567890", "RUC001", "Av. 10 de Agosto"));
@@ -50,28 +45,6 @@ public class Main {
         productos.add(new ProductoTecnologico("T001", "Laptop", "Laptop gama media", 600.0, UnidadDeMedida.MES, 24));
 
         ShowConsole showConsole = new ShowConsole(productos);
-
-        // 1. Obtener un usuario existente
-        Usuario solicitante = usuarios.get(0); // Usa el primer usuario ya registrado
-
-        // 2. Crear detalles de la solicitud
-        Producto producto1 = productos.get(0); // Por ejemplo: Manzanas
-        Producto producto2 = productos.get(1); // Por ejemplo: Detergente
-
-        DetalleSolicitud detalle1 = new DetalleSolicitud(producto1, 5, "Para el evento de bienvenida");
-        DetalleSolicitud detalle2 = new DetalleSolicitud(producto2, 2, "Limpieza mensual");
-
-        // 3. Crear la solicitud
-        SolicitudDeCompra solicitudQuemada = new SolicitudDeCompra();
-        solicitudQuemada.setUsuario(solicitante);
-        solicitudQuemada.setNumeroSolicitud("SC000"); // Número quemado
-        solicitudQuemada.setEstado(Estado.SOLICITADA);
-        solicitudQuemada.setFechaSolicitud(new GregorianCalendar());
-        solicitudQuemada.agregarDetalle(detalle1);
-        solicitudQuemada.agregarDetalle(detalle2);
-
-        // 4. Añadir a la lista general
-        solicitudes.add(solicitudQuemada);
 
         boolean continuar = true;
 
@@ -178,7 +151,7 @@ public class Main {
             String nombreBuscado = showConsole.iputNombreProducto();
             int index = binaria.buscarProductoNombre(productos, nombreBuscado);
 
-            if (index >= 0) {
+            if (index == 0) {
                 System.out.println("Producto encontrado");
                 System.out.println(productos.get(index));
             } else {
@@ -226,41 +199,38 @@ public class Main {
         System.out.println("\nTotal de la solicitud: $" + solicitud.calcularTotal());
     }
 
-    //4
     public static void registrarSolicitudCompra() {
         ShowConsole showConsole = new ShowConsole(productos);
-        String nombreSolicitante= showConsole.pedirNombreSolicitante();
+        String nombreSolicitante = showConsole.pedirNombreSolicitante();
         Usuario usuario = null;
 
-        for(Usuario u : usuarios) {
+        for (Usuario u : usuarios) {
             if (u.getNombre().equalsIgnoreCase(nombreSolicitante)) {
                 usuario = u;
                 break;
             }
         }
+
         if (usuario == null) {
             System.out.println("No existen usuarios registrados");
             return;
         }
 
-        //crea un nuevo número de solicitud
-        String numeroSolicitud = "SC" + String.format("%03d", contadorDeSolicitudes);//convierte a un numero de minimo 3 digitos y pone 0's adelante
-        contadorDeSolicitudes++; //sube el contador para la proxima solicitud
+        // Crear un nuevo número de solicitud
+        String numeroSolicitud = "SC" + String.format("%03d", contadorDeSolicitudes);
+        contadorDeSolicitudes++;
 
-        //crea la nueva solicitud
-        SolicitudDeCompra nuevaSolicitud = new SolicitudDeCompra();
-        nuevaSolicitud.setNumeroSolicitud(numeroSolicitud);
-        nuevaSolicitud.setUsuario(usuario);
-        nuevaSolicitud.setEstado(enums.Estado.SOLICITADA);
-        nuevaSolicitud.setFechaSolicitud(new GregorianCalendar());
+        // Crear nueva solicitud
+        GregorianCalendar fecha = new GregorianCalendar();
+        usuario.addSolicitud(fecha, enums.Estado.SOLICITADA, numeroSolicitud);
+        SolicitudDeCompra nuevaSolicitud = usuario.getSolicitud();
 
-        //agregar productos
+        // Agregar productos
         boolean seguirAgregando = true;
         while (seguirAgregando) {
             System.out.println("Ingrese el nombre del producto que desea agregar:");
             String nombreProducto = scanner.nextLine();
 
-            //busca el producto en la lista
             Producto productoSeleccionado = null;
             for (Producto p : productos) {
                 if (p.getNombre().equalsIgnoreCase(nombreProducto)) {
@@ -272,11 +242,10 @@ public class Main {
             if (productoSeleccionado == null) {
                 System.out.println("No se encontró el producto");
             } else {
-                int cantidad=showConsole.pedirCantidadProducto();
+                int cantidad = showConsole.pedirCantidadProducto();
 
-                //crea un detalle de solicitud y agregarlo
-                DetalleSolicitud detalle = new DetalleSolicitud(productoSeleccionado, cantidad, "Justificación no disponible");
-                nuevaSolicitud.agregarDetalle(detalle);
+                // Llamar al metodo correcto
+                nuevaSolicitud.agregarDetalle(productoSeleccionado, cantidad, "Justificación no disponible");
                 System.out.println("Producto agregado correctamente a la solicitud.");
             }
 
@@ -284,29 +253,29 @@ public class Main {
         }
 
         solicitudes.add(nuevaSolicitud);
-
-        System.out.println("Solicitud registrada con éxito. numero de solicitud: " + numeroSolicitud);
+        System.out.println("Solicitud registrada con éxito. número de solicitud: " + numeroSolicitud);
     }
 
 
     public static void calcularTotalSolicitud() {
         ShowConsole showConsole = new ShowConsole(productos);
+        SolicitudDeCompra solicitudEncontrada = null;
         String numero = showConsole.pedirNumeroSolicitudCalcular();
 
-        SolicitudDeCompra solicitud= null;
+        SolicitudDeCompra soicitudEcontrada= null;
         for(SolicitudDeCompra s : solicitudes) {
             if (s.getNumeroSolicitud().equalsIgnoreCase(numero)) {
-                solicitud = s;
+                soicitudEcontrada = s;
                 break;
             }
         }
 
-        if (solicitud == null) {
+        if (soicitudEcontrada == null) {
             showConsole.mostrarSolicitudNoEncontrada();
             return;
         }
 
-        double total = solicitud.calcularTotal();
+        double total = solicitudEncontrada.calcularTotal();
         showConsole.mostrarSolicitud(total);
     }
 
@@ -348,6 +317,5 @@ public class Main {
 
         solicitudEncontrada.aprobarEstado(evaluador, aprobar); //se llama al metodo de SolicitudDeCompra
     }
-
 
 }

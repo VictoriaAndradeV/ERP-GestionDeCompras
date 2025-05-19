@@ -36,10 +36,10 @@ public class ProductoComestible extends Producto {
     }
 
     public String toString(){
-    return super.toString()+ " Peso: " + peso + " " + unidad +
-            " Caduca: " + fechaCaducidad +
-            " Expira: " + fechaCaducidad +
-            " Precio total: $" + calcularPrecio();
+        return super.toString()+ " Peso: " + peso + " " + unidad +
+                " Caduca: " + fechaCaducidad +
+                " Expira: " + fechaCaducidad +
+                " Precio total: $" + calcularPrecio();
     }
 
 
